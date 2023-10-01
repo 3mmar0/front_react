@@ -1,0 +1,19 @@
+#root {
+  max-width: 1480px;
+  margin: auto;
+}
+
+.sec_ttl::after {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 4px;
+  margin-top: -2px;
+  border-radius: 14px;
+  background-color: #eb690a;
+  transition: 0.5s;
+}
+
+.sec_ttl:hover::after {
+  width: 100%;
+}
