@@ -7,3 +7,9 @@ export interface UserData {
   phone?: string;
   country?: string;
 }
+
+export interface DataLinks {
+  link?: string;
+  ttl?: string;
+  icon?: JSX.Element;
+}

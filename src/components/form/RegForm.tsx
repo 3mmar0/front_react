@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import toast from "react-hot-toast";
 import { UserData } from "@/lib/types";
 import { registerUser } from "@/slices/reg/registerAction";
+import { Link } from "react-router-dom";
 
 interface RegFormProps extends FormHTMLAttributes<HTMLFormElement> {
   //   onSubmit: (email: string, password: string) => void;
@@ -40,7 +41,7 @@ const RegForm: FC<RegFormProps> = ({ className }) => {
   useEffect(() => {
     if (success === true && msg) {
       toast.success(msg);
-      window.location = "/";
+      window.location.href = "/";
     }
     if (success === false && msg) {
       toast.error(msg);
@@ -60,6 +61,7 @@ const RegForm: FC<RegFormProps> = ({ className }) => {
       title="Register Page"
       disc="Create new account"
       className={className}
+      isOauth={true}
     >
       <FormInput
         label="first_name"
@@ -108,6 +110,12 @@ const RegForm: FC<RegFormProps> = ({ className }) => {
         variant={"outline"}
         text="Sign Up"
       />
+
+      <Link to={"/login"}>
+        <p className="text-sm font-semibold text-blue-800 underline">
+          have an account? Sign In
+        </p>
+      </Link>
     </FormModel>
   );
 };

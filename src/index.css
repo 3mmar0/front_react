@@ -7,6 +7,8 @@
   box-sizing: border-box;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   list-style: none;
+  transition: all 0.5s;
+  scroll-behavior: smooth;
 }
 
 .border-md {

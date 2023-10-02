@@ -1,3 +1,4 @@
+import { IsMatch } from "@/components/hook/hooks";
 import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import { FC } from "react";
@@ -13,7 +14,11 @@ const Root: FC<mainProps> = () => {
     <div className="w-full h-full flex flex-col">
       {isDash == "dashboard" ? null : <Header />}
       <Outlet />
-      {isDash == "dashboard" ? null : <Footer />}
+      {isDash == "dashboard" ||
+      IsMatch("/login") ||
+      IsMatch("/register") ? null : (
+        <Footer />
+      )}
     </div>
   );
 };

@@ -5,7 +5,7 @@ interface homeProps {}
 
 const Home: FC<homeProps> = () => {
   return (
-    <div className="flex-1 overflow-y-auto">
+    <div className="flex-1 mt-[70px]">
       <MetaDate ttl="Home - page" />
       <section className="p-4 mb-4 grid md:grid-cols-3 grid-cols-1 gap-2 md:h-[400px] h-[500px]">
         <div className="bg-slate-600 md:col-span-2 md:row-span-1 row-span-2"></div>

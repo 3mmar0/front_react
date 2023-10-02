@@ -7,7 +7,7 @@ import { Icons } from "@/components/icons";
 interface FormProps extends HTMLAttributes<HTMLFormElement> {
   title: string;
   disc: string;
-  isOauth: boolean;
+  isOauth?: boolean;
 }
 
 const FormModel: FC<FormProps> = ({

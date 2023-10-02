@@ -36,7 +36,7 @@ const LoginForm: FC<LoginFormProps> = ({ className }) => {
   useEffect(() => {
     if (success === true && msg) {
       toast.success(msg);
-      window.location = "/";
+      window.location.href = "/";
     }
     if (success === false && msg) {
       toast.error(msg);
@@ -56,6 +56,7 @@ const LoginForm: FC<LoginFormProps> = ({ className }) => {
       title="Sign In"
       disc="Continue to your store"
       className={className}
+      isOauth={true}
     >
       <FormInput
         label="email"
