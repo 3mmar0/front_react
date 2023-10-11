@@ -1,5 +1,5 @@
 export interface UserData {
-  id?: string;
+  id?: number;
   first_name?: string;
   last_name?: string;
   email?: string;
@@ -12,4 +12,16 @@ export interface DataLinks {
   link?: string;
   ttl?: string;
   icon?: JSX.Element;
+}
+
+export interface StoreType {
+  id?: number;
+  name?: string;
+  slug?: string;
+  disc?: string;
+  logo?: string;
+  cover?: string;
+  status?: string;
+  created_at?: string;
+  updated_at?: string;
 }

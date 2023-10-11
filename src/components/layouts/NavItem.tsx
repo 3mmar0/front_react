@@ -27,24 +27,32 @@ const NavItem: FC<NavItemProps> = ({ open, data }) => {
     <li
       onClick={() => setopenCh(!openCh)}
       className={cn(
-        IsMatch(`${data.link}`) ? "bg-slate-200" : "bg-slate-50",
-        "w-full py-2 px-3 rounded-md hover:bg-slate-100"
+        IsMatch(`${data.link}`)
+          ? "bg-slate-800 text-slate-50"
+          : "text-slate-800 hover:bg-slate-100",
+        " p-2 cursor-pointer",
+        open ? "rounded-md w-full" : "rounded-full"
       )}
     >
       <Link
-        className="flex items-center justify-between text-slate-700 text-2xl gap-3"
+        className={cn(
+          open ? "justify-between" : "justify-center",
+          "flex items-center text-xl gap-3"
+        )}
         to={`${data.link}`}
       >
         <div className="flex items-center">
-          {data.icon}
-          <h3
-            className={cn(
-              open ? "block" : "hidden",
-              "ml-3 text-xl font-semibold capitalize text-slate-800"
-            )}
-          >
-            {data.ttl}
-          </h3>
+          <span className="">{data.icon}</span>
+          {open && (
+            <h3
+              className={cn(
+                open ? "block" : "hidden",
+                "ml-3 text-xl font-semibold capitalize"
+              )}
+            >
+              {data.ttl}
+            </h3>
+          )}
         </div>
         {data?.children && open ? (
           <>

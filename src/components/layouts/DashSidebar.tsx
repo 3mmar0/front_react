@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
 import { FC, useState } from "react";
+import logo from "@assets/mainLogo.png";
 import {
-  AiFillDashboard,
+  AiOutlineDashboard,
   AiOutlineMenuFold,
   AiOutlineMenuUnfold,
 } from "react-icons/ai";
@@ -15,22 +16,12 @@ const data = [
   {
     ttl: "dashboard",
     link: "/dashboard",
-    icon: <AiFillDashboard />,
+    icon: <AiOutlineDashboard />,
   },
   {
     ttl: "products",
     link: "/dashboard/products",
     icon: <BiSolidGridAlt />,
-    children: [
-      {
-        ttl: "all",
-        link: "/dashboard/products/all",
-      },
-      {
-        ttl: "create",
-        link: "/dashboard/products/create",
-      },
-    ],
   },
   {
     ttl: "categories",
@@ -53,17 +44,22 @@ const DashSidebar: FC<DashSidebarProps> = () => {
         onClick={() => setopen(!open)}
         className={cn(
           open ? "w-[250px]" : "",
-          "p-4 bg-slate-900 text-slate-50 cursor-pointer text-3xl flex items-center justify-center h-[75px] shadow border border-r-0 border-slate-400"
+          "py-2 px-4 z-10 text-slate-800 cursor-pointer text-3xl flex items-center justify-between gap-2 h-[76px] max-h-[76px] overflow-hidden shadow border-y border-r border-l-0 border-slate-300"
         )}
       >
+        <img
+          className={cn(open ? "" : "hidden", "object-contain h-full")}
+          src={logo}
+          alt="main logo"
+        />
         {open ? <AiOutlineMenuFold /> : <AiOutlineMenuUnfold />}
       </div>
-      <div className=" border-r border-slate-400 shadow-md h-full">
-        <nav className="flex flex-col items-center gap-3 h-full p-2">
+      <div className="border-r border-slate-300 shadow-md h-full w-full">
+        <ul className="flex flex-col items-center gap-3 h-full p-2">
           {data.map((e, i) => {
             return <NavItem key={i} open={open} data={e} />;
           })}
-        </nav>
+        </ul>
       </div>
     </div>
   );

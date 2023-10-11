@@ -7,7 +7,6 @@
   box-sizing: border-box;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   list-style: none;
-  transition: all 0.5s;
   scroll-behavior: smooth;
 }
 
@@ -16,4 +15,20 @@
 }
 .border-n {
   @apply rounded border border-border;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #efefef;
 }

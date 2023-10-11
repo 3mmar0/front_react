@@ -1,13 +1,23 @@
 import login from "@/slices/login/login";
 import register from "@/slices/reg/register";
+import createStore from "@/slices/store/createStore";
+import deleteStore from "@/slices/store/deleteStore";
+import singleStore from "@/slices/store/singleStore";
+import stores from "@/slices/store/stores";
+import updateStore from "@/slices/store/updateStore";
 import { configureStore } from "@reduxjs/toolkit";
-import counterSlice from "@slices/testSlice";
 
 export const store = configureStore({
   reducer: {
-    counter: counterSlice,
+    // Auth
     login: login,
     register: register,
+    // stores
+    stores,
+    singleStore,
+    updateStore,
+    deleteStore,
+    createStore,
   },
 });
 

@@ -9,6 +9,8 @@ import AuthUser from "@middlewares/AuthUser";
 import Dash from "@pages/dashboard/dash";
 import Products from "@/pages/dashboard/products/products";
 import CreateProduct from "./pages/dashboard/products/createProduct";
+import Stores from "@/pages/dashboard/stores/stores";
+import CreateStore from "./pages/dashboard/stores/createStore";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +50,14 @@ const router = createBrowserRouter([
           {
             path: "products/create",
             element: <CreateProduct />,
+          },
+          {
+            path: "stores",
+            element: <Stores />,
+          },
+          {
+            path: "stores/create",
+            element: <CreateStore />,
           },
         ],
       },
