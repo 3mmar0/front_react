@@ -79,6 +79,11 @@ const LoginForm: FC<LoginFormProps> = ({ className }) => {
         // required
       />
 
+      <Link to={"/fotget-password"}>
+        <p className="text-sm font-semibold text-blue-800 underline">
+          Forgot password?
+        </p>
+      </Link>
       <Button
         type="submit"
         className="mt-3"

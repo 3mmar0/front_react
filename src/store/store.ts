@@ -1,3 +1,4 @@
+import forgetPassword from "@/slices/forgotPass/forgetPassword";
 import login from "@/slices/login/login";
 import register from "@/slices/reg/register";
 import createStore from "@/slices/store/createStore";
@@ -12,6 +13,7 @@ export const store = configureStore({
     // Auth
     login: login,
     register: register,
+    forgetPassword,
     // stores
     stores,
     singleStore,

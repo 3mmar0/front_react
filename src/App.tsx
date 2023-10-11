@@ -11,6 +11,8 @@ import Products from "@/pages/dashboard/products/products";
 import CreateProduct from "./pages/dashboard/products/createProduct";
 import Stores from "@/pages/dashboard/stores/stores";
 import CreateStore from "./pages/dashboard/stores/createStore";
+import FotgetPassword from "./pages/fotgetPassword";
+import AdminUser from "./middlewares/AdminUser";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+      ////////////////// Auth //////////////////
       {
         path: "/login",
         element: (
@@ -33,14 +36,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/register",
-        element: <Register />,
+        element: (
+          <AuthUser>
+            <Register />,
+          </AuthUser>
+        ),
       },
+      {
+        path: "/fotget-password",
+        element: <FotgetPassword />,
+      },
+      {
+        path: "/resset-password",
+        element: <h2>reset pass</h2>,
+      },
+      ////////////////// Dashboard //////////////////
       {
         path: "/dashboard",
         element: (
-          <>
+          <AdminUser>
             <Dash />
-          </>
+          </AdminUser>
         ),
         children: [
           {
