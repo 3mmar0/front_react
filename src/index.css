@@ -16,6 +16,9 @@
 .border-n {
   @apply rounded border border-border;
 }
+.contain {
+  @apply flex-1 mt-[70px] grid p-4 place-items-center;
+}
 
 table {
   border-collapse: collapse;

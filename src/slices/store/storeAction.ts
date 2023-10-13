@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 const user = cookies.get("user");
-const TOKEN = `Bearerr ${user?.token}`;
+const TOKEN = `Bearer ${user?.token}`;
 const config = {
   headers: {
     Authorization: TOKEN,
@@ -35,10 +35,14 @@ export const createStore = createAsyncThunk(
 // *********** Update *********** //
 export const updateStore = createAsyncThunk(
   "stores/update",
-  async (args: FormData, thunkAPI) => {
+  async (args: { dat: FormData; id: number }, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const { data } = await axios.put("/dashboard/stores", args, config);
+      const { data } = await axios.post(
+        `/dashboard/stores/${args.id}`,
+        args.dat,
+        config
+      );
       return data;
     } catch (err) {
       if (err?.response?.data?.message === "Unauthenticated.") {

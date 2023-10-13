@@ -32,11 +32,11 @@ const Stores: FC<storesProps> = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       dispatch(stores());
     };
 
-    return async () => await fetchData();
+    return () => fetchData();
   }, [dispatch]);
 
   useEffect(() => {
@@ -85,7 +85,9 @@ const Stores: FC<storesProps> = () => {
               <td>{e.status}</td>
               <td>
                 <div className="flex items-center justify-center gap-2 text-xl">
-                  <BiEditAlt className="active:scale-95 cursor-pointer text-green-700" />
+                  <Link to={`/dashboard/stores/update/${e.id}`}>
+                    <BiEditAlt className="active:scale-95 cursor-pointer text-green-700" />
+                  </Link>
                   <AiOutlineDelete
                     onClick={() => handleDelete(e.id)}
                     className="active:scale-95 cursor-pointer text-red-800"
