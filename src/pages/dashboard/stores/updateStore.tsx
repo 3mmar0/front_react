@@ -87,7 +87,7 @@ const UpdateStore: FC<UpdateStoreProps> = () => {
       dispatch(singleStore(Number(params)));
     };
 
-    return () => fetchData();
+    fetchData();
   }, [dispatch, params]);
 
   if (loading || snLd) {

@@ -86,7 +86,7 @@ export const singleStore = createAsyncThunk(
 // *********** Delete *********** //
 export const deleteStore = createAsyncThunk(
   "stores/delete",
-  async (args: number, thunkAPI) => {
+  async (args: number | undefined, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
       const { data } = await axios.delete(`/dashboard/stores/${args}`, config);

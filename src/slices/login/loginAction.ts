@@ -16,7 +16,7 @@ const config = {
 
 // *********** Supplier *********** //
 export const loginUser = createAsyncThunk(
-  "login/login",
+  "auth/login",
   async (args: UserData, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
@@ -30,6 +30,6 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const clearErrors = createAsyncThunk("login/clear", async () => {
+export const clearErrors = createAsyncThunk("auth/login/clear", async () => {
   return true;
 });

@@ -1,15 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { clearErrors, forgetPass } from "./forgetPasswordAction";
+import { Slice } from "@/lib/types";
 
-interface Login {
-  loading: boolean | null;
-  success: boolean | null;
-  msg: string;
-  errors: object;
-  data: object | null | [];
-}
-
-const initialState: Login = {
+const initialState: Slice<object> = {
   loading: null,
   success: null,
   msg: "",
@@ -23,33 +16,34 @@ const ForgetPassSlice = createSlice({
   reducers: {},
   extraReducers: {
     // *********** Login ********** //
-    [forgetPass.pending.type]: (state: Login) => {
+    [forgetPass.pending.type]: (state: Slice<object>) => {
       state.loading = true;
       state.msg = "";
       state.errors = {};
       state.success = null;
     },
     [forgetPass.fulfilled.type]: (
-      state: Login,
-      action: PayloadAction<Login>
+      state: Slice<object>,
+      action: PayloadAction<Slice<object>>
     ) => {
       state.loading = false;
       state.success = action.payload.success;
       state.msg = action.payload.msg;
     },
     [forgetPass.rejected.type]: (
-      state: Login,
-      action: PayloadAction<Login>
+      state: Slice<object>,
+      action: PayloadAction<Slice<object>>
     ) => {
       state.loading = false;
       state.success = false;
       state.msg = action.payload?.msg;
       state.errors = action.payload?.errors;
     },
-    [clearErrors.fulfilled.type]: (state: Login) => {
+    [clearErrors.fulfilled.type]: (state: Slice<object>) => {
       state.loading = false;
       state.success = null;
       state.msg = "";
+      state.errors = {};
     },
   },
 });

@@ -25,3 +25,12 @@ export interface StoreType {
   created_at?: string;
   updated_at?: string;
 }
+
+export interface Slice<T> {
+  loading: boolean | null;
+  success: boolean | null;
+  msg: string;
+  user?: T | object | null;
+  errors: object | string;
+  data: T | object | null | [];
+}

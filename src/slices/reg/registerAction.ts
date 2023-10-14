@@ -10,7 +10,7 @@ const config = {
 
 // *********** Supplier *********** //
 export const registerUser = createAsyncThunk(
-  "register/register",
+  "auth/register",
   async (args: UserData, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
@@ -22,6 +22,6 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-export const clearErrors = createAsyncThunk("register/clear", async () => {
+export const clearErrors = createAsyncThunk("auth/register/clear", async () => {
   return true;
 });

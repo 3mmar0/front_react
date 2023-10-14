@@ -1,9 +1,8 @@
+import useTest from "@/Hook/useTest";
 import DashboardContainer from "@/components/DashboardContainer";
 import Loader from "@/components/Loader";
-import { clearErrors, deleteStore, stores } from "@/slices/store/storeAction";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { FC, useEffect } from "react";
-import toast from "react-hot-toast";
+import { StoreType } from "@/lib/types";
+import { FC } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { Link } from "react-router-dom";
@@ -17,45 +16,8 @@ const links = [
 ];
 
 const Stores: FC<storesProps> = () => {
-  const { loading, data, errors, success } = useAppSelector(
-    (state) => state.stores
-  );
-  const {
-    loading: delLd,
-    msg,
-    success: delSucc,
-  } = useAppSelector((state) => state.deleteStore);
-  const dispatch = useAppDispatch();
-
-  const handleDelete = (id: number) => {
-    dispatch(deleteStore(id));
-  };
-
-  useEffect(() => {
-    const fetchData = () => {
-      dispatch(stores());
-    };
-
-    return () => fetchData();
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (success === false && errors) {
-      toast.error(errors);
-    }
-  }, [success, errors]);
-  useEffect(() => {
-    if (delSucc === false && msg) {
-      toast.error(msg);
-      dispatch(clearErrors());
-    }
-    if (delSucc && msg) {
-      toast.success(msg);
-      dispatch(stores());
-    }
-  }, [delSucc, msg, dispatch]);
-
-  if (loading || delLd) {
+  const { data, handleDelete, loading } = useTest({ states: "stores" });
+  if (loading) {
     return <Loader />;
   }
   return (
@@ -68,34 +30,38 @@ const Stores: FC<storesProps> = () => {
       </Link>
       <div className="mt-10 py-2 overflow-auto w-full">
         <table className="min-w-[300px]">
-          <tr>
-            <th>#id</th>
-            <th>name</th>
-            <th>slug</th>
-            <th>disc</th>
-            <th>status</th>
-            <th>actions</th>
-          </tr>
-          {data?.map((e) => (
-            <tr key={e?.id}>
-              <td>{e.id}</td>
-              <td>{e.name}</td>
-              <td>{e.slug}</td>
-              <td>{e.disc}</td>
-              <td>{e.status}</td>
-              <td>
-                <div className="flex items-center justify-center gap-2 text-xl">
-                  <Link to={`/dashboard/stores/update/${e.id}`}>
-                    <BiEditAlt className="active:scale-95 cursor-pointer text-green-700" />
-                  </Link>
-                  <AiOutlineDelete
-                    onClick={() => handleDelete(e.id)}
-                    className="active:scale-95 cursor-pointer text-red-800"
-                  />
-                </div>
-              </td>
+          <thead>
+            <tr>
+              <th>#id</th>
+              <th>name</th>
+              <th>slug</th>
+              <th>disc</th>
+              <th>status</th>
+              <th>actions</th>
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {data?.map((e: StoreType) => (
+              <tr key={e?.id}>
+                <td>{e.id}</td>
+                <td>{e.name}</td>
+                <td>{e.slug}</td>
+                <td>{e.disc}</td>
+                <td>{e.status}</td>
+                <td>
+                  <div className="flex items-center justify-center gap-2 text-xl">
+                    <Link to={`/dashboard/stores/update/${e.id}`}>
+                      <BiEditAlt className="active:scale-95 cursor-pointer text-green-700" />
+                    </Link>
+                    <AiOutlineDelete
+                      onClick={() => handleDelete(e.id)}
+                      className="active:scale-95 cursor-pointer text-red-800"
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </DashboardContainer>
