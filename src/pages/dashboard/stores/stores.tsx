@@ -1,4 +1,4 @@
-import useTest from "@/Hook/useTest";
+import useGet from "@/Hook/useGet";
 import DashboardContainer from "@/components/DashboardContainer";
 import Loader from "@/components/Loader";
 import { StoreType } from "@/lib/types";
@@ -16,7 +16,7 @@ const links = [
 ];
 
 const Stores: FC<storesProps> = () => {
-  const { data, handleDelete, loading } = useTest({ states: "stores" });
+  const { data, handleDelete, loading } = useGet({ states: "stores" });
   if (loading) {
     return <Loader />;
   }
@@ -28,7 +28,7 @@ const Stores: FC<storesProps> = () => {
       >
         Create new
       </Link>
-      <div className="mt-10 py-2 overflow-auto w-full">
+      <div className="mt-10 py-2 overflow-auto sm:w-full">
         <table className="min-w-[300px]">
           <thead>
             <tr>

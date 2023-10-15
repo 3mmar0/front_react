@@ -1,6 +1,8 @@
 import forgetPassword from "@/slices/forgotPass/forgetPassword";
 import ressetPassword from "@/slices/forgotPass/ressetPassword";
 import login from "@/slices/login/login";
+import profile from "@/slices/profile/profile";
+import updateProfile from "@/slices/profile/updateProfile";
 import register from "@/slices/reg/register";
 import createStore from "@/slices/store/createStore";
 import deleteStore from "@/slices/store/deleteStore";
@@ -12,8 +14,10 @@ import { configureStore } from "@reduxjs/toolkit";
 export const store = configureStore({
   reducer: {
     // Auth
-    login: login,
-    register: register,
+    profile: profile,
+    updateProfile,
+    login,
+    register,
     forgetPassword,
     ressetPassword,
     // stores

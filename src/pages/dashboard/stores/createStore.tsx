@@ -30,7 +30,6 @@ const CreateStore: FC<createStoreProps> = () => {
 
   const [name, setname] = useState<string>("");
   const [disc, setdisc] = useState<string>("");
-  const [errs, seterrs] = useState<StoreType>();
 
   const fetchData = async (e: FormEvent) => {
     e.preventDefault();
@@ -48,10 +47,6 @@ const CreateStore: FC<createStoreProps> = () => {
     if (success === false && msg) {
       toast.error(msg);
     }
-    if (errors) {
-      seterrs(errors);
-    }
-    // dispatch(clearErrors());
   }, [success, msg, errors]);
 
   if (loading) {
@@ -72,7 +67,7 @@ const CreateStore: FC<createStoreProps> = () => {
           label="name"
           name="name"
           placeholder="Store name"
-          error={errs?.name}
+          error={errors?.name}
         />
         <FormInput
           value={disc}
@@ -80,10 +75,14 @@ const CreateStore: FC<createStoreProps> = () => {
           label="disc"
           name="disc"
           placeholder="Store disc"
-          error={errs?.disc}
+          error={errors?.disc}
         />
-        <InputFile name="logo" label="Selcet Logo img" error={errs?.logo} />
-        <InputFile name="cover" label="Select Cover img" error={errs?.cover} />
+        <InputFile name="logo" label="Selcet Logo img" error={errors?.logo} />
+        <InputFile
+          name="cover"
+          label="Select Cover img"
+          error={errors?.cover}
+        />
         <Button type="submit">Create</Button>
       </FormModel>
     </DashboardContainer>

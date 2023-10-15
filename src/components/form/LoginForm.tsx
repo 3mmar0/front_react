@@ -13,11 +13,6 @@ interface LoginFormProps extends FormHTMLAttributes<HTMLFormElement> {
   //   onSubmit: (email: string, password: string) => void;
 }
 
-type err = {
-  email?: string;
-  password?: string;
-};
-
 const LoginForm: FC<LoginFormProps> = ({ className }) => {
   const { loading, success, msg, errors } = useAppSelector(
     (state) => state.login
@@ -26,7 +21,6 @@ const LoginForm: FC<LoginFormProps> = ({ className }) => {
 
   const [email, setemail] = useState<string>("");
   const [password, setpassword] = useState<string>("");
-  const [erros, seterros] = useState<err>();
 
   const fetchData = async (email: string, password: string, e: FormEvent) => {
     e.preventDefault();
@@ -41,10 +35,7 @@ const LoginForm: FC<LoginFormProps> = ({ className }) => {
     if (success === false && msg) {
       toast.error(msg);
     }
-    if (errors) {
-      seterros(errors);
-    }
-  }, [success, msg, errors]);
+  }, [success, msg]);
 
   if (loading) {
     return <Loader />;
@@ -65,8 +56,8 @@ const LoginForm: FC<LoginFormProps> = ({ className }) => {
         placeholder="example@gmail.com"
         value={email}
         onChange={(e) => setemail(e.target.value)}
-        error={erros?.email}
-        // required
+        error={errors?.email}
+        required
       />
       <FormInput
         label="password"
@@ -75,8 +66,8 @@ const LoginForm: FC<LoginFormProps> = ({ className }) => {
         placeholder="*******"
         value={password}
         onChange={(e) => setpassword(e.target.value)}
-        error={erros?.password}
-        // required
+        error={errors?.password}
+        required
       />
 
       <Link to={"/fotget-password"}>

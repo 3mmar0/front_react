@@ -40,6 +40,10 @@ const LoginAuthSlice = createSlice({
           path: "/",
           maxAge: 3600 * 24 * 10,
         });
+        cookies.set("token", JSON.stringify(state.user.token), {
+          path: "/",
+          maxAge: 3600 * 24 * 10,
+        });
       }
     },
     [loginUser.rejected.type]: (

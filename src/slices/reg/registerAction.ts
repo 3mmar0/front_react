@@ -2,19 +2,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../axios";
 import { UserData } from "@/lib/types";
 
-const config = {
-  headers: {
-    "Content-Type": "application/json",
-  },
-};
-
 // *********** Supplier *********** //
 export const registerUser = createAsyncThunk(
   "auth/register",
   async (args: UserData, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const { data } = await axios.post("/register", args, config);
+      const { data } = await axios.post("/register", args);
       return data;
     } catch (err) {
       return rejectWithValue(err?.response?.data);

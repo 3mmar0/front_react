@@ -24,6 +24,7 @@ const Avatar: FC<AvatarProps> = () => {
 
   const handleLogout = () => {
     cookies.remove("user");
+    cookies.remove("token");
     window.location.href = "/login";
   };
 

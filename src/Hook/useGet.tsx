@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 
-const useTest = ({ states }: { states: string }) => {
+const useGet = ({ states }: { states: string }) => {
   const { loading, data, errors, success } = useAppSelector(
     (state) => state[`${states}`]
   );
@@ -48,4 +48,4 @@ const useTest = ({ states }: { states: string }) => {
   };
 };
 
-export default useTest;
+export default useGet;
