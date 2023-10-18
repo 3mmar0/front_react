@@ -26,6 +26,19 @@ export interface StoreType {
   updated_at?: string;
 }
 
+export interface CategoryType {
+  id?: string;
+  parent_id?: string;
+  name?: string;
+  slug?: string;
+  disc?: string;
+  image?: string;
+  status?: string;
+  created_at?: string;
+  updated_at?: string;
+  parent?: CategoryType;
+}
+
 export interface Slice<T> {
   loading: boolean | null;
   success: boolean | null;

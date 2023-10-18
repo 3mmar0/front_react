@@ -1,50 +1,39 @@
-import { clearErrors, deleteStore, stores } from "@/slices/store/storeAction";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { AnyAction } from "@reduxjs/toolkit";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { useLocation } from "react-router-dom";
 
-const useGet = ({ states }: { states: string }) => {
+const useGet = ({
+  states,
+  allData,
+}: {
+  states: string;
+  allData: (data: string | undefined) => AnyAction;
+}) => {
+  const { search } = useLocation();
+
   const { loading, data, errors, success } = useAppSelector(
     (state) => state[`${states}`]
   );
-  const {
-    loading: delLd,
-    msg,
-    success: delSucc,
-  } = useAppSelector((state) => state.deleteStore);
   const dispatch = useAppDispatch();
-
-  const handleDelete = (id: number | undefined) => {
-    dispatch(deleteStore(id));
-  };
 
   useEffect(() => {
     const fetchData = () => {
-      dispatch(stores());
+      dispatch(allData(search));
     };
     fetchData();
-    return () => dispatch(clearErrors());
-  }, [dispatch]);
+  }, [dispatch, search]);
 
   useEffect(() => {
     if (success === false && errors) {
       toast.error(errors);
     }
   }, [success, errors]);
-  useEffect(() => {
-    if (delSucc === false && msg) {
-      toast.error(msg);
-    }
-    if (delSucc && msg) {
-      toast.success(msg);
-      dispatch(stores());
-    }
-  }, [delSucc, msg, dispatch]);
 
   return {
     data,
-    handleDelete,
-    loading: loading || delLd,
+    loading: loading,
   };
 };
 

@@ -9,6 +9,11 @@ import deleteStore from "@/slices/store/deleteStore";
 import singleStore from "@/slices/store/singleStore";
 import stores from "@/slices/store/stores";
 import updateStore from "@/slices/store/updateStore";
+import createCategory from "@/slices/categories/createCategory";
+import deleteCategory from "@/slices/categories/deleteCategory";
+import singleCategory from "@/slices/categories/singleCategory";
+import categories from "@/slices/categories/categories";
+import updateCategory from "@/slices/categories/updateCategory";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
@@ -26,6 +31,12 @@ export const store = configureStore({
     updateStore,
     deleteStore,
     createStore,
+    // Categories
+    categories,
+    singleCategory,
+    updateCategory,
+    deleteCategory,
+    createCategory,
   },
 });
 

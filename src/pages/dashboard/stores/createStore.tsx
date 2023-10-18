@@ -1,3 +1,4 @@
+import useCreate from "@/Hook/useCreate";
 import DashboardContainer from "@/components/DashboardContainer";
 import Loader from "@/components/Loader";
 import FormInput from "@/components/form/FormInput";
@@ -6,9 +7,7 @@ import InputFile from "@/components/ui/InputFile";
 import { StoreType } from "@/lib/types";
 import FormModel from "@/models/form-model";
 import { clearErrors, createStore } from "@/slices/store/storeAction";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { FC, FormEvent, useEffect, useState } from "react";
-import toast from "react-hot-toast";
 
 interface createStoreProps {}
 
@@ -23,31 +22,28 @@ const links = [
 ];
 
 const CreateStore: FC<createStoreProps> = () => {
-  const { loading, success, msg, errors } = useAppSelector(
-    (state) => state.createStore
-  );
-  const dispatch = useAppDispatch();
+  const { loading, handleCreate, errors } = useCreate({
+    states: "createStore",
+    createFun: createStore,
+    clearFun: clearErrors(),
+  });
 
   const [name, setname] = useState<string>("");
   const [disc, setdisc] = useState<string>("");
-
+  const [errs, seterrs] = useState<StoreType>();
   const fetchData = async (e: FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("disc", disc);
-    dispatch(createStore(formData));
+    name && formData.append("name", name);
+    disc && formData.append("disc", disc);
+    handleCreate(formData);
   };
 
   useEffect(() => {
-    if (success === true && msg) {
-      toast.success(msg);
-      // window.location.href = "/dashboard/stores";
+    if (Object.keys(errors).length !== 0) {
+      seterrs(errors);
     }
-    if (success === false && msg) {
-      toast.error(msg);
-    }
-  }, [success, msg, errors]);
+  }, [errors]);
 
   if (loading) {
     return <Loader />;
@@ -67,7 +63,7 @@ const CreateStore: FC<createStoreProps> = () => {
           label="name"
           name="name"
           placeholder="Store name"
-          error={errors?.name}
+          error={errs?.name}
         />
         <FormInput
           value={disc}
@@ -75,14 +71,10 @@ const CreateStore: FC<createStoreProps> = () => {
           label="disc"
           name="disc"
           placeholder="Store disc"
-          error={errors?.disc}
+          error={errs?.disc}
         />
-        <InputFile name="logo" label="Selcet Logo img" error={errors?.logo} />
-        <InputFile
-          name="cover"
-          label="Select Cover img"
-          error={errors?.cover}
-        />
+        <InputFile name="logo" label="Selcet Logo img" error={errs?.logo} />
+        <InputFile name="cover" label="Select Cover img" error={errs?.cover} />
         <Button type="submit">Create</Button>
       </FormModel>
     </DashboardContainer>
