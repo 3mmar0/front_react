@@ -28,19 +28,11 @@ const router = createBrowserRouter([
       ////////////////// Auth //////////////////
       {
         path: "/login",
-        element: (
-          <AuthUser>
-            <Login />,
-          </AuthUser>
-        ),
+        element: <Login />,
       },
       {
         path: "/register",
-        element: (
-          <AuthUser>
-            <Register />,
-          </AuthUser>
-        ),
+        element: <Register />,
       },
       {
         path: "/fotget-password",
