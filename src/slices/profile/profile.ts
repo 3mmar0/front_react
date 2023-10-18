@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { clearErrors, forgetPass } from "./forgetPasswordAction";
-import { Slice } from "@/lib/types";
+import { clearErrors, getProfile } from "./profileAction";
+import { Slice, UserData } from "@/lib/types";
 
-const initialState: Slice<object> = {
+const initialState: Slice<UserData> = {
   loading: null,
   success: null,
   msg: "",
@@ -10,36 +10,37 @@ const initialState: Slice<object> = {
   data: {},
 };
 
-const ForgetPassSlice = createSlice({
+const getProfileSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {},
   extraReducers: {
     // *********** Login ********** //
-    [forgetPass.pending.type]: (state: Slice<object>) => {
+    [getProfile.pending.type]: (state: Slice<UserData>) => {
       state.loading = true;
       state.msg = "";
       state.errors = {};
       state.success = null;
     },
-    [forgetPass.fulfilled.type]: (
-      state: Slice<object>,
-      action: PayloadAction<Slice<object>>
+    [getProfile.fulfilled.type]: (
+      state: Slice<UserData>,
+      action: PayloadAction<Slice<UserData>>
     ) => {
       state.loading = false;
       state.success = action.payload.success;
       state.msg = action.payload.msg;
+      state.data = action.payload.data;
     },
-    [forgetPass.rejected.type]: (
-      state: Slice<object>,
-      action: PayloadAction<Slice<object>>
+    [getProfile.rejected.type]: (
+      state: Slice<UserData>,
+      action: PayloadAction<Slice<UserData>>
     ) => {
       state.loading = false;
       state.success = false;
       state.msg = action.payload?.msg;
       state.errors = action.payload?.errors;
     },
-    [clearErrors.fulfilled.type]: (state: Slice<object>) => {
+    [clearErrors.fulfilled.type]: (state: Slice<UserData>) => {
       state.loading = false;
       state.success = null;
       state.msg = "";
@@ -48,4 +49,4 @@ const ForgetPassSlice = createSlice({
   },
 });
 
-export default ForgetPassSlice.reducer;
+export default getProfileSlice.reducer;

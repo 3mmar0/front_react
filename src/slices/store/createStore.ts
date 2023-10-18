@@ -1,15 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { clearErrors, createStore, deleteStore } from "./storeAction";
+import { clearErrors, createStore } from "./storeAction";
+import { Slice } from "@/lib/types";
 
-interface Store {
-  loading: boolean | null;
-  success: boolean | null;
-  msg: string;
-  errors: object;
-  data: object | null;
-}
-
-const initialState: Store = {
+const initialState: Slice<object> = {
   loading: null,
   success: null,
   msg: "",
@@ -22,8 +15,8 @@ const CreateStoreSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    // *********** Create ********** //
-    [createStore.pending.type]: (state: Store) => {
+    // *********** Create - Store ********** //
+    [createStore.pending.type]: (state: Slice<object>) => {
       state.loading = true;
       state.msg = "";
       state.data = {};
@@ -31,8 +24,8 @@ const CreateStoreSlice = createSlice({
       state.success = null;
     },
     [createStore.fulfilled.type]: (
-      state: Store,
-      action: PayloadAction<Store>
+      state: Slice<object>,
+      action: PayloadAction<Slice<object>>
     ) => {
       state.loading = false;
       state.success = action.payload.success;
@@ -41,42 +34,15 @@ const CreateStoreSlice = createSlice({
       state.errors = {};
     },
     [createStore.rejected.type]: (
-      state: Store,
-      action: PayloadAction<Store>
+      state: Slice<object>,
+      action: PayloadAction<Slice<object>>
     ) => {
       state.loading = false;
       state.success = false;
       state.msg = action.payload?.msg;
       state.errors = action.payload?.errors;
     },
-    // *********** Delete ********** //
-    [deleteStore.pending.type]: (state: Store) => {
-      state.loading = true;
-      state.msg = "";
-      state.data = {};
-      state.errors = {};
-      state.success = null;
-    },
-    [deleteStore.fulfilled.type]: (
-      state: Store,
-      action: PayloadAction<Store>
-    ) => {
-      state.loading = false;
-      state.success = action.payload.success;
-      state.msg = action.payload.msg;
-      state.data = action.payload.data;
-      state.errors = {};
-    },
-    [deleteStore.rejected.type]: (
-      state: Store,
-      action: PayloadAction<Store>
-    ) => {
-      state.loading = false;
-      state.success = false;
-      state.msg = action.payload?.msg;
-      state.errors = action.payload?.errors;
-    },
-    [clearErrors.fulfilled.type]: (state: Store) => {
+    [clearErrors.fulfilled.type]: (state: Slice<object>) => {
       state.loading = false;
       state.success = null;
       state.msg = "";

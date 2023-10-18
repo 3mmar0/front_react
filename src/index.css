@@ -10,11 +10,26 @@
   scroll-behavior: smooth;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .border-md {
   @apply rounded-md border border-border;
 }
 .border-n {
   @apply rounded border border-border;
+}
+.contain {
+  @apply flex-1 mt-[70px] grid p-4 place-items-center;
 }
 
 table {

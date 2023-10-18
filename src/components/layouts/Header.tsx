@@ -8,7 +8,7 @@ import { headerLinks } from "@/lib/data";
 
 const Header = () => {
   return (
-    <div className="fixed top-0 left-0 right-0 bg-slate-900 min-h-[60px] h-full max-h-[70px] py-3 px-6 flex items-center justify-center shadow-lg">
+    <div className="fixed top-0 left-0 right-0 bg-slate-900 min-h-[60px] h-full max-h-[70px] py-3 px-6 flex items-center justify-center shadow-lg z-[999]">
       <div className="h-full w-full bg-slate-50 flex items-center justify-between gap-4 px-5 py-2 rounded-full border border-slate-300">
         <Link to={"/"} className="">
           <img

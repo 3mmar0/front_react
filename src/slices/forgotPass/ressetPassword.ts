@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { clearErrors, forgetPass } from "./forgetPasswordAction";
+import { clearErrors, ressetPass } from "./forgetPasswordAction";
 import { Slice } from "@/lib/types";
 
 const initialState: Slice<object> = {
@@ -10,19 +10,19 @@ const initialState: Slice<object> = {
   data: {},
 };
 
-const ForgetPassSlice = createSlice({
+const RessetPassSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {},
   extraReducers: {
-    // *********** Login ********** //
-    [forgetPass.pending.type]: (state: Slice<object>) => {
+    // *********** Resset - Password ********** //
+    [ressetPass.pending.type]: (state: Slice<object>) => {
       state.loading = true;
       state.msg = "";
       state.errors = {};
       state.success = null;
     },
-    [forgetPass.fulfilled.type]: (
+    [ressetPass.fulfilled.type]: (
       state: Slice<object>,
       action: PayloadAction<Slice<object>>
     ) => {
@@ -30,7 +30,7 @@ const ForgetPassSlice = createSlice({
       state.success = action.payload.success;
       state.msg = action.payload.msg;
     },
-    [forgetPass.rejected.type]: (
+    [ressetPass.rejected.type]: (
       state: Slice<object>,
       action: PayloadAction<Slice<object>>
     ) => {
@@ -48,4 +48,4 @@ const ForgetPassSlice = createSlice({
   },
 });
 
-export default ForgetPassSlice.reducer;
+export default RessetPassSlice.reducer;

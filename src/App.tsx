@@ -13,6 +13,9 @@ import Stores from "@/pages/dashboard/stores/stores";
 import CreateStore from "./pages/dashboard/stores/createStore";
 import FotgetPassword from "./pages/fotgetPassword";
 import AdminUser from "./middlewares/AdminUser";
+import RessetPassword from "./pages/ressetPassword";
+import Profile from "./pages/profile";
+import UpdateStore from "./pages/dashboard/stores/updateStore";
 
 const router = createBrowserRouter([
   {
@@ -36,11 +39,23 @@ const router = createBrowserRouter([
       },
       {
         path: "/fotget-password",
-        element: <FotgetPassword />,
+        element: (
+          <AuthUser>
+            <FotgetPassword />
+          </AuthUser>
+        ),
       },
       {
         path: "/resset-password",
-        element: <h2>reset pass</h2>,
+        element: (
+          <AuthUser>
+            <RessetPassword />
+          </AuthUser>
+        ),
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
       ////////////////// Dashboard //////////////////
       {
@@ -51,6 +66,7 @@ const router = createBrowserRouter([
           </AdminUser>
         ),
         children: [
+          // Products
           {
             path: "products",
             element: <Products />,
@@ -59,6 +75,7 @@ const router = createBrowserRouter([
             path: "products/create",
             element: <CreateProduct />,
           },
+          // stores
           {
             path: "stores",
             element: <Stores />,
@@ -66,6 +83,10 @@ const router = createBrowserRouter([
           {
             path: "stores/create",
             element: <CreateStore />,
+          },
+          {
+            path: "stores/update/:id",
+            element: <UpdateStore />,
           },
         ],
       },

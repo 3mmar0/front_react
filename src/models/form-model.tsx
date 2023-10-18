@@ -27,7 +27,7 @@ const FormModel: FC<FormProps> = ({
       {...props}
     >
       <h2 className="font-semibold text-2xl">{title}</h2>
-      <p className="-mt-4 text-slate-600 font-medium">{disc}</p>
+      <p className="-mt-4 text-slate-500 font-medium text-sm">{disc}</p>
       <div>
         {isOauth ? (
           <>

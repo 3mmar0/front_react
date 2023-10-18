@@ -3,14 +3,20 @@ import Loader from "@/components/Loader";
 import FormInput from "@/components/form/FormInput";
 import { Button } from "@/components/ui/Button";
 import InputFile from "@/components/ui/InputFile";
+import InputSelect from "@/components/ui/InputSelect";
 import { StoreType } from "@/lib/types";
 import FormModel from "@/models/form-model";
-import { clearErrors, createStore } from "@/slices/store/storeAction";
+import {
+  clearErrors,
+  singleStore,
+  updateStore,
+} from "@/slices/store/storeAction";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { FC, FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
 
-interface createStoreProps {}
+interface UpdateStoreProps {}
 
 const links = [
   {
@@ -22,21 +28,32 @@ const links = [
   },
 ];
 
-const CreateStore: FC<createStoreProps> = () => {
-  const { loading, success, msg, errors } = useAppSelector(
-    (state) => state.createStore
-  );
+const UpdateStore: FC<UpdateStoreProps> = () => {
+  const params = useParams()?.id;
   const dispatch = useAppDispatch();
+  const { loading, success, msg, errors } = useAppSelector(
+    (state) => state.updateStore
+  );
+  const {
+    loading: snLd,
+    success: snSucc,
+    msg: snMsg,
+    data,
+  } = useAppSelector((state) => state.singleStore);
 
   const [name, setname] = useState<string>("");
   const [disc, setdisc] = useState<string>("");
+  const [status, setstatus] = useState("");
+  const [errs, seterrs] = useState<StoreType>();
 
   const fetchData = async (e: FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("name", name);
     formData.append("disc", disc);
-    dispatch(createStore(formData));
+    formData.append("status", status);
+    formData.append("_method", "put");
+    dispatch(updateStore({ dat: formData, id: params }));
   };
 
   useEffect(() => {
@@ -47,9 +64,33 @@ const CreateStore: FC<createStoreProps> = () => {
     if (success === false && msg) {
       toast.error(msg);
     }
+    if (errors) {
+      seterrs(errors);
+    }
   }, [success, msg, errors]);
+  useEffect(() => {
+    if (snSucc === true && snMsg) {
+      toast.success(snMsg);
+    }
+    if (snSucc === false && snMsg) {
+      toast.error(snMsg);
+    }
+    if (data?.name) {
+      setname(data?.name);
+      setdisc(data?.disc);
+      setstatus(data?.status);
+    }
+  }, [params, snSucc, snMsg, data, dispatch]);
 
-  if (loading) {
+  useEffect(() => {
+    const fetchData = () => {
+      dispatch(singleStore(Number(params)));
+    };
+
+    fetchData();
+  }, [dispatch, params]);
+
+  if (loading || snLd) {
     return <Loader />;
   }
   return (
@@ -67,7 +108,7 @@ const CreateStore: FC<createStoreProps> = () => {
           label="name"
           name="name"
           placeholder="Store name"
-          error={errors?.name}
+          error={errs?.name}
         />
         <FormInput
           value={disc}
@@ -75,18 +116,26 @@ const CreateStore: FC<createStoreProps> = () => {
           label="disc"
           name="disc"
           placeholder="Store disc"
-          error={errors?.disc}
+          error={errs?.disc}
         />
-        <InputFile name="logo" label="Selcet Logo img" error={errors?.logo} />
-        <InputFile
-          name="cover"
-          label="Select Cover img"
-          error={errors?.cover}
+        <InputFile name="logo" label="Selcet Logo img" error={errs?.logo} />
+        <InputFile name="cover" label="Select Cover img" error={errs?.cover} />
+        <InputSelect
+          label="Status"
+          name="status"
+          options={[
+            { name: "Active", val: "active" },
+            { name: "disactive", val: "disactive" },
+          ]}
+          value={status}
+          onChange={(e) => setstatus(e.target.value)}
         />
-        <Button type="submit">Create</Button>
+        <Button type="submit" className="mt-4">
+          Update
+        </Button>
       </FormModel>
     </DashboardContainer>
   );
 };
 
-export default CreateStore;
+export default UpdateStore;
