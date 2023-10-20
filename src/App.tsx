@@ -61,9 +61,9 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: (
-          <AdminUser>
+          // <AdminUser>
             <Dash />
-          </AdminUser>
+          // </AdminUser>
         ),
         children: [
           // Products
