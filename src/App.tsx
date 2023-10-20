@@ -5,7 +5,7 @@ import Login from "@pages/login";
 import ErrorPage from "./ErrorPage";
 import Home from "@pages/home";
 import Register from "@pages/register";
-import AuthUser from "@middlewares/AuthUser";
+import GuestUser from "@/middlewares/GuestUser";
 import Dash from "@pages/dashboard/dash";
 import Products from "@/pages/dashboard/products/products";
 import CreateProduct from "./pages/dashboard/products/createProduct";
@@ -16,6 +16,10 @@ import AdminUser from "./middlewares/AdminUser";
 import RessetPassword from "./pages/ressetPassword";
 import Profile from "./pages/profile";
 import UpdateStore from "./pages/dashboard/stores/updateStore";
+import AuthUser from "./middlewares/AuthUser";
+import Categories from "./pages/dashboard/categories/categories";
+import UpdateCategory from "./pages/dashboard/categories/updateCategory";
+import CreateCategory from "./pages/dashboard/categories/createCategory";
 
 const router = createBrowserRouter([
   {
@@ -31,31 +35,43 @@ const router = createBrowserRouter([
       ////////////////// Auth //////////////////
       {
         path: "/login",
-        element: <Login />,
+        element: (
+          <GuestUser>
+            <Login />,
+          </GuestUser>
+        ),
       },
       {
         path: "/register",
-        element: <Register />,
+        element: (
+          <GuestUser>
+            <Register />,
+          </GuestUser>
+        ),
       },
       {
         path: "/fotget-password",
         element: (
-          <AuthUser>
+          <GuestUser>
             <FotgetPassword />
-          </AuthUser>
+          </GuestUser>
         ),
       },
       {
         path: "/resset-password",
         element: (
-          <AuthUser>
+          <GuestUser>
             <RessetPassword />
-          </AuthUser>
+          </GuestUser>
         ),
       },
       {
         path: "/profile",
-        element: <Profile />,
+        element: (
+          <AuthUser>
+            <Profile />
+          </AuthUser>
+        ),
       },
       ////////////////// Dashboard //////////////////
       {
@@ -87,6 +103,19 @@ const router = createBrowserRouter([
           {
             path: "stores/update/:id",
             element: <UpdateStore />,
+          },
+          // categories
+          {
+            path: "categories",
+            element: <Categories />,
+          },
+          {
+            path: "categories/create",
+            element: <CreateCategory />,
+          },
+          {
+            path: "categories/update/:id",
+            element: <UpdateCategory />,
           },
         ],
       },

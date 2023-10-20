@@ -2,36 +2,42 @@ import useDelete from "@/Hook/useDelete";
 import useGet from "@/Hook/useGet";
 import DashboardContainer from "@/components/DashboardContainer";
 import Loader from "@/components/Loader";
-import { StoreType } from "@/lib/types";
-import { clearErrors, deleteStore, stores } from "@/slices/store/storeAction";
-import { FC } from "react";
+import Pagination from "@/components/ui/Pagination";
+import { CategoryType } from "@/lib/types";
+import {
+  categories,
+  clearErrors,
+  deleteCategory,
+} from "@/slices/categories/categoryAction";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
-interface storesProps {}
-
 const links = [
   {
-    name: "stores",
+    name: "categories",
   },
 ];
 
-const Stores: FC<storesProps> = () => {
-  const { data, loading } = useGet({ states: "stores", allData: stores });
+const Categories = () => {
+  const { data, loading } = useGet({
+    states: "categories",
+    allData: categories,
+  });
   const { handleDelete, loading: delLD } = useDelete({
-    states: "deleteStore",
-    delFun: deleteStore,
-    recalFun: stores,
+    states: "deleteCategory",
+    delFun: deleteCategory,
+    recalFun: categories,
     clearFun: clearErrors(),
   });
   if (loading || delLD) {
     return <Loader />;
   }
+
   return (
-    <DashboardContainer ttl="Stores" links={links}>
+    <DashboardContainer ttl="Categories" links={links}>
       <Link
-        to={"/dashboard/stores/create"}
+        to={"/dashboard/categories/create"}
         className="bg-green-900 text-slate-50 w-full p-2 text-center rounded-md hover:opacity-80 active:scale-90"
       >
         Create new
@@ -44,21 +50,25 @@ const Stores: FC<storesProps> = () => {
               <th>name</th>
               <th>slug</th>
               <th>disc</th>
+              <th>Parent</th>
               <th>status</th>
               <th>actions</th>
             </tr>
           </thead>
           <tbody>
-            {data?.map((e: StoreType) => (
+            {data?.data?.map((e: CategoryType) => (
               <tr key={e?.id}>
                 <td>{e.id}</td>
                 <td>{e.name}</td>
                 <td>{e.slug}</td>
                 <td>{e.disc}</td>
+                <td className="text-center">
+                  {e?.parent?.name ? e?.parent?.name : "Main"}
+                </td>
                 <td>{e.status}</td>
                 <td>
                   <div className="flex items-center justify-center gap-2 text-xl">
-                    <Link to={`/dashboard/stores/update/${e.id}`}>
+                    <Link to={`/dashboard/categories/update/${e.id}`}>
                       <BiEditAlt className="active:scale-95 cursor-pointer text-green-700" />
                     </Link>
                     <AiOutlineDelete
@@ -72,8 +82,11 @@ const Stores: FC<storesProps> = () => {
           </tbody>
         </table>
       </div>
+      <div className="mt-10">
+        <Pagination data={data} />
+      </div>
     </DashboardContainer>
   );
 };
 
-export default Stores;
+export default Categories;

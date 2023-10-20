@@ -31,7 +31,9 @@ const InputSelect: FC<InputSelectProps> = ({
       >
         <option hidden>Select {label}</option>
         {options?.map((e) => (
-          <option value={e.val}>{e.name}</option>
+          <option key={e.val} value={e.val}>
+            {e.name}
+          </option>
         ))}
       </select>
       <span className={cn(onErr, "text-red-700 text-[13px] font-semibold")}>

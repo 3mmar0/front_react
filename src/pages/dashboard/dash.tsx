@@ -1,11 +1,17 @@
+import useGet from "@/Hook/useGet";
 import DashHeader from "@/components/layouts/DashHeader";
 import DashSidebar from "@/components/layouts/DashSidebar";
+import { categories } from "@/slices/categories/categoryAction";
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
 
 interface dashProps {}
 
 const Dash: FC<dashProps> = () => {
+  // const cats = useGet({
+  //   states: "categories",
+  //   allData: categories(),
+  // });
   return (
     <div className="flex flex-1">
       <DashSidebar />
