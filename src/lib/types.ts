@@ -39,6 +39,26 @@ export interface CategoryType {
   parent?: CategoryType;
 }
 
+export interface ProductType {
+  id?: string;
+  store_id?: string;
+  category_id?: string;
+  name?: string;
+  slug?: string;
+  disc?: string;
+  tags?: string;
+  price?: string;
+  compare_price?: string;
+  options?: string;
+  rating?: string;
+  image?: string;
+  type?: string;
+  status?: string;
+  created_at?: string;
+  updated_at?: string;
+  // parent?: CategoryType;
+}
+
 export interface Slice<T> {
   loading: boolean | null;
   success: boolean | null;

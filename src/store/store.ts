@@ -14,6 +14,11 @@ import deleteCategory from "@/slices/categories/deleteCategory";
 import singleCategory from "@/slices/categories/singleCategory";
 import categories from "@/slices/categories/categories";
 import updateCategory from "@/slices/categories/updateCategory";
+import createProduct from "@/slices/products/createProduct";
+import deleteProduct from "@/slices/products/deleteProduct";
+import singleProduct from "@/slices/products/singleProduct";
+import products from "@/slices/products/products";
+import updateProduct from "@/slices/products/updateProduct";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
@@ -28,15 +33,21 @@ export const store = configureStore({
     // stores
     stores,
     singleStore,
+    createStore,
     updateStore,
     deleteStore,
-    createStore,
     // Categories
     categories,
     singleCategory,
+    createCategory,
     updateCategory,
     deleteCategory,
-    createCategory,
+    // Products
+    products,
+    singleProduct,
+    createProduct,
+    updateProduct,
+    deleteProduct,
   },
 });
 

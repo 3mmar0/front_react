@@ -24,12 +24,14 @@ const Categories = () => {
     states: "categories",
     allData: categories,
   });
+
   const { handleDelete, loading: delLD } = useDelete({
     states: "deleteCategory",
     delFun: deleteCategory,
     recalFun: categories,
     clearFun: clearErrors(),
   });
+
   if (loading || delLD) {
     return <Loader />;
   }

@@ -1,4 +1,5 @@
-import useCreate from "@/Hook/useCreate";
+import useSingle from "@/Hook/useSingle";
+import useUpdate from "@/Hook/useUpdate";
 import DashboardContainer from "@/components/DashboardContainer";
 import Loader from "@/components/Loader";
 import FormInput from "@/components/form/FormInput";
@@ -8,9 +9,13 @@ import InputSelect from "@/components/ui/InputSelect";
 import { ProductType } from "@/lib/types";
 import { uploadImg } from "@/lib/utils";
 import FormModel from "@/models/form-model";
-import { clearErrors, createProduct } from "@/slices/products/productAction";
-
+import {
+  clearErrors,
+  singleProduct,
+  updateProduct,
+} from "@/slices/products/productAction";
 import { FormEvent, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const links = [
   {
@@ -18,14 +23,23 @@ const links = [
     link: "products",
   },
   {
-    name: "create",
+    name: "update",
   },
 ];
 
-const CreateProduct = () => {
-  const { loading, handleCreate, errors } = useCreate({
-    states: "createProduct",
-    createFun: createProduct,
+const UpdateProduct = () => {
+  const params = useParams()?.id;
+  const { data, loading } = useSingle({
+    states: "singleProduct",
+    callFun: singleProduct,
+  });
+  const {
+    handleUpdate,
+    loading: updateLD,
+    errors,
+  } = useUpdate({
+    states: "updateProduct",
+    updateFun: updateProduct,
     clearFun: clearErrors(),
   });
 
@@ -39,6 +53,7 @@ const CreateProduct = () => {
   const [rating, setrating] = useState<string>("5");
   const [type, settype] = useState<string>("new");
   const [image, setimage] = useState<object>();
+  const [status, setstatus] = useState("");
   const [errs, seterrs] = useState<ProductType>();
 
   const fetchData = async (e: FormEvent) => {
@@ -54,16 +69,33 @@ const CreateProduct = () => {
     rating && formData.append("rating", rating);
     type && formData.append("type", type);
     image?.img && formData.append("image", image.img);
-    handleCreate(formData);
+    status && formData.append("status", status);
+    formData.append("_method", "put");
+    handleUpdate({ dat: formData, id: params });
   };
+  useEffect(() => {
+    if (data?.name) {
+      setname(data?.name);
+      setdisc(data?.disc);
+      setcategory_id(data?.category_id);
+      setstore_id(data?.store_id);
+      setprice(data?.price);
+      setcompare_price(data?.compare_price);
+      settags(data?.tags);
+      setrating(data?.rating);
+      settype(data?.type);
+      setimage({ ...image, imgApi: data?.image });
+      setstatus(data?.status);
+    }
+  }, [data]);
 
   useEffect(() => {
-    if (Object?.keys(errors).length !== 0) {
+    if (Object.keys(errors).length !== 0) {
       seterrs(errors);
     }
   }, [errors]);
 
-  if (loading) {
+  if (loading || updateLD) {
     return <Loader />;
   }
   return (
@@ -81,7 +113,7 @@ const CreateProduct = () => {
           label="name"
           name="name"
           placeholder="Product name"
-          error={errs?.name}
+          error={errors?.name}
         />
         <FormInput
           value={disc}
@@ -89,7 +121,7 @@ const CreateProduct = () => {
           label="disc"
           name="disc"
           placeholder="Product disc"
-          error={errs?.disc}
+          error={errors?.disc}
         />
         <FormInput
           type="number"
@@ -123,21 +155,6 @@ const CreateProduct = () => {
           error={errs?.store_id}
           options={[]}
         />
-        <InputFile
-          name="image"
-          label="Selcet Product img"
-          onChange={(e) => setimage(uploadImg(e))}
-          error={errs?.image}
-        />
-        {image?.img && (
-          <div className="p-2">
-            <img
-              src={image?.img && URL?.createObjectURL(image?.img)}
-              className="h-24 w-24 object-contain"
-              alt=""
-            />
-          </div>
-        )}
         <InputSelect
           label="Type"
           name="type"
@@ -148,10 +165,45 @@ const CreateProduct = () => {
           value={type}
           onChange={(e) => settype(e.target.value)}
         />
-        <Button type="submit">Create</Button>
+        <InputFile
+          name="image"
+          label="Selcet Product img"
+          onChange={(e) => setimage(uploadImg(e))}
+          error={errs?.image}
+        />
+        {image?.imgApi ? (
+          <div className="p-2">
+            <img
+              src={`http://localhost:8000/storage/${image?.imgApi}`}
+              className="h-24 w-24 object-contain"
+              alt=""
+            />
+          </div>
+        ) : (
+          <div className="p-2">
+            <img
+              src={image?.img && URL?.createObjectURL(image?.img)}
+              className="h-24 w-24 object-contain"
+              alt="img"
+            />
+          </div>
+        )}
+        <InputSelect
+          label="Status"
+          name="status"
+          options={[
+            { name: "active", val: "active" },
+            { name: "disactive", val: "disactive" },
+          ]}
+          value={status}
+          onChange={(e) => setstatus(e.target.value)}
+        />
+        <Button type="submit" className="mt-4">
+          Update
+        </Button>
       </FormModel>
     </DashboardContainer>
   );
 };
 
-export default CreateProduct;
+export default UpdateProduct;

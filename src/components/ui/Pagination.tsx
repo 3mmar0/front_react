@@ -35,7 +35,7 @@ const Pagination: FC<PaginationProps> = ({ data }) => {
             to={e?.url?.split("v1")[1]}
             className={cn(
               e?.active
-                ? "z-[1] outline-3 outline outline-sky-400 -outline-offset-2"
+                ? "z-[1] bg-sky-400 text-slate-50 outline-3 outline outline-sky-400 -outline-offset-2"
                 : "",
               "paginate__link whitespace-nowrap"
             )}

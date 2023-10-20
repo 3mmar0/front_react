@@ -11,7 +11,7 @@ interface BreadcampProps {
 
 const Breadcamp: FC<BreadcampProps> = ({ ttl, links }) => {
   return (
-    <div className="flex items-center justify-between mb-6">
+    <div className="flex items-center flex-wrap justify-between mb-6">
       <h2 className="md:text-3xl text-xl font-bold text-gray-800">{ttl}</h2>
       <div className="flex items-center flex-wrap md:text-lg sm:text-base text-sm px-2">
         <Link

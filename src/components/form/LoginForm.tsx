@@ -14,10 +14,10 @@ interface LoginFormProps extends FormHTMLAttributes<HTMLFormElement> {
 }
 
 const LoginForm: FC<LoginFormProps> = ({ className }) => {
-  const { loading, success, msg, errors } = useAppSelector(
-    (state) => state.login
-  );
   const dispatch = useAppDispatch();
+  const { loading, success, msg, errors } = useAppSelector(
+    (state) => state["login"]
+  );
 
   const [email, setemail] = useState<string>("");
   const [password, setpassword] = useState<string>("");

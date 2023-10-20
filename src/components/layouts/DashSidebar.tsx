@@ -43,7 +43,7 @@ const DashSidebar: FC<DashSidebarProps> = () => {
       <div
         onClick={() => setopen(!open)}
         className={cn(
-          open ? "w-[250px]" : "",
+          open ? "w-[200px]" : "",
           "py-2 px-4 z-10 text-slate-800 cursor-pointer text-3xl flex items-center justify-between gap-2 h-[76px] max-h-[76px] overflow-hidden shadow border-y border-r border-l-0 border-slate-300"
         )}
       >
