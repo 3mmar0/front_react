@@ -9,8 +9,8 @@ const AdminUser = ({ children }: { children: React.ReactNode }) => {
     return (window.location.href = "/login");
   }
 
-  if (user && (user?.role !== "admin" || user?.role !== "super-admin")) {
-    return (window.location.href = "/");
+  if (user && user?.role !== "admin" && user?.role !== "super-admin") {
+    return;
   }
 
   return children;

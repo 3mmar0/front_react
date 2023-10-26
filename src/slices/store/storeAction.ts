@@ -1,10 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../axios";
 import Cookies from "universal-cookie";
+import { AxiosError } from "axios";
 
 const cookies = new Cookies();
 const user = cookies.get("token");
-const TOKEN = `Bearer ${user}`;
+const TOKEN = `Bearerr ${user}`;
 const config = {
   headers: {
     Authorization: TOKEN,
@@ -45,10 +46,10 @@ export const updateStore = createAsyncThunk(
       );
       return data;
     } catch (err) {
-      if (err?.response?.data?.message === "Unauthenticated.") {
-        return rejectWithValue(err?.response?.data?.message);
+      if (err.response?.data?.message === "Unauthenticated.") {
+        return rejectWithValue(err.response?.data?.message);
       }
-      return rejectWithValue(err?.response?.data);
+      return rejectWithValue(err.response?.data);
     }
   }
 );
@@ -58,9 +59,10 @@ export const stores = createAsyncThunk("stores/all", async (args, thunkAPI) => {
   try {
     const { data } = await axios.get("/dashboard/stores", config);
     return data;
-  } catch (err) {
-    if (err?.response?.data?.message === "Unauthenticated.") {
-      return rejectWithValue(err?.response?.data?.message);
+  } catch (_err) {
+    const err: AxiosError = _err;
+    if (err?.response?.data === "Unauthenticated.") {
+      return rejectWithValue(err?.response?.data);
     }
 
     return rejectWithValue(err?.response?.data);

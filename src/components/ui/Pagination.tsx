@@ -1,22 +1,23 @@
+import { PaginationType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 
 interface PaginationProps {
-  data: object;
+  data: PaginationType;
 }
 
 const Pagination: FC<PaginationProps> = ({ data }) => {
   return (
     <div className="flex items-center justify-end">
       <Link
-        to={data?.first_page_url?.split("v1")[1]}
+        to={`${data?.first_page_url?.split("v1")[1]}`}
         className="paginate__link"
       >
         {"<<"}
       </Link>
       <Link
-        to={data?.prev_page_url?.split("v1")[1]}
+        to={`${data?.prev_page_url?.split("v1")[1]}`}
         className={cn(
           data?.prev_page_url !== null
             ? ""
@@ -27,12 +28,12 @@ const Pagination: FC<PaginationProps> = ({ data }) => {
         {"Prev"}
       </Link>
       {data?.links?.map((e, i) => {
-        return i === 0 || i === data?.links.length - 1 ? (
+        return i === 0 || i === data?.links?.length - 1 ? (
           ""
         ) : (
           <Link
             key={i}
-            to={e?.url?.split("v1")[1]}
+            to={`${e?.url?.split("v1")[1]}`}
             className={cn(
               e?.active
                 ? "z-[1] bg-sky-400 text-slate-50 outline-3 outline outline-sky-400 -outline-offset-2"
@@ -45,7 +46,7 @@ const Pagination: FC<PaginationProps> = ({ data }) => {
         );
       })}
       <Link
-        to={data?.next_page_url?.split("v1")[1]}
+        to={`${data?.next_page_url?.split("v1")[1]}`}
         className={cn(
           data?.next_page_url !== null
             ? ""
@@ -55,7 +56,10 @@ const Pagination: FC<PaginationProps> = ({ data }) => {
       >
         {"Next"}
       </Link>
-      <Link to={data?.last_page_url?.split("v1")[1]} className="paginate__link">
+      <Link
+        to={`${data?.last_page_url?.split("v1")[1]}`}
+        className="paginate__link"
+      >
         {">>"}
       </Link>
     </div>

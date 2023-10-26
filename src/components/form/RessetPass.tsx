@@ -3,10 +3,7 @@ import { Button } from "../ui/Button";
 import FormModel from "@/models/form-model";
 import FormInput from "./FormInput";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import {
-  clearErrors,
-  ressetPass,
-} from "@/slices/forgotPass/forgetPasswordAction";
+import { ressetPass } from "@/slices/forgotPass/forgetPasswordAction";
 import Loader from "../Loader";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +19,7 @@ const RessetPass: FC<RessetPassProps> = ({ className }) => {
   );
 
   const [email, setemail] = useState<string>("");
-  const [otp, setotp] = useState<number>();
+  const [otp, setotp] = useState<string>();
   const [password, setpassword] = useState<string>("");
   const [open, setopen] = useState<boolean>(false);
 
