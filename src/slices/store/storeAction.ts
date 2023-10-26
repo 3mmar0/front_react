@@ -5,7 +5,7 @@ import { AxiosError } from "axios";
 
 const cookies = new Cookies();
 const user = cookies.get("token");
-const TOKEN = `Bearerr ${user}`;
+const TOKEN = `Bearer ${user}`;
 const config = {
   headers: {
     Authorization: TOKEN,
