@@ -60,31 +60,42 @@ const Products = () => {
             </tr>
           </thead>
           <tbody>
-            {data?.data?.map((e: ProductType) => (
-              <tr key={e?.id}>
-                <td>{e.id}</td>
-                <td>{e.name}</td>
-                <td>{e.disc}</td>
-                <td>{e.price}</td>
-                <td>{e.compare_price}</td>
-                <td>{e?.store_id}</td>
-                <td>{e?.category_id}</td>
-                <td>{e?.rating}</td>
-                <td>{e?.type}</td>
-                <td>{e.status}</td>
-                <td>
-                  <div className="flex items-center justify-center gap-2 text-xl">
-                    <Link to={`/dashboard/products/update/${e.id}`}>
-                      <BiEditAlt className="active:scale-95 cursor-pointer text-green-700" />
-                    </Link>
-                    <AiOutlineDelete
-                      onClick={() => handleDelete(e.id)}
-                      className="active:scale-95 cursor-pointer text-red-800"
-                    />
-                  </div>
+            {data?.data?.length ? (
+              data?.data?.map((e: ProductType) => (
+                <tr key={e?.id}>
+                  <td>{e.id}</td>
+                  <td>{e.name}</td>
+                  <td>{e.disc}</td>
+                  <td>{e.price}</td>
+                  <td>{e.compare_price}</td>
+                  <td>{e?.store_id}</td>
+                  <td>{e?.category_id}</td>
+                  <td>{e?.rating}</td>
+                  <td>{e?.type}</td>
+                  <td>{e.status}</td>
+                  <td>
+                    <div className="flex items-center justify-center gap-2 text-xl">
+                      <Link to={`/dashboard/products/update/${e.id}`}>
+                        <BiEditAlt className="active:scale-95 cursor-pointer text-green-700" />
+                      </Link>
+                      <AiOutlineDelete
+                        onClick={() => handleDelete(e.id)}
+                        className="active:scale-95 cursor-pointer text-red-800"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  className="text-center font-semibold text-xl text-slate-500"
+                  colSpan={11}
+                >
+                  No data to show
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

@@ -8,6 +8,7 @@ import {
 } from "react-icons/ai";
 import { BiSolidGridAlt, BiSolidStore } from "react-icons/bi";
 import NavItem from "./NavItem";
+import { FaShapes } from "react-icons/fa";
 
 interface DashSidebarProps {}
 
@@ -19,17 +20,17 @@ const data = [
   },
   {
     ttl: "products",
-
+    link: "/dashboard/products",
     icon: <BiSolidGridAlt />,
   },
   {
     ttl: "categories",
-
+    link: "/dashboard/categories",
     icon: <FaShapes />,
   },
   {
     ttl: "stores",
-
+    link: "/dashboard/stores",
     icon: <BiSolidStore />,
   },
 ];

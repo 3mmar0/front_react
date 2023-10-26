@@ -4,7 +4,6 @@ const cookies = new Cookies();
 
 const GuestUser = ({ children }: { children: React.ReactNode }) => {
   const user = cookies.get("user");
-  console.log(user);
 
   if (user && user.email) {
     return (window.location.href = "/");

@@ -2,6 +2,7 @@ import useDelete from "@/Hook/useDelete";
 import useGet from "@/Hook/useGet";
 import DashboardContainer from "@/components/DashboardContainer";
 import Loader from "@/components/Loader";
+import Pagination from "@/components/ui/Pagination";
 import { StoreType } from "@/lib/types";
 import { clearErrors, deleteStore, stores } from "@/slices/store/storeAction";
 import { FC } from "react";
@@ -49,28 +50,42 @@ const Stores: FC<storesProps> = () => {
             </tr>
           </thead>
           <tbody>
-            {data?.map((e: StoreType) => (
-              <tr key={e?.id}>
-                <td>{e.id}</td>
-                <td>{e.name}</td>
-                <td>{e.slug}</td>
-                <td>{e.disc}</td>
-                <td>{e.status}</td>
-                <td>
-                  <div className="flex items-center justify-center gap-2 text-xl">
-                    <Link to={`/dashboard/stores/update/${e.id}`}>
-                      <BiEditAlt className="active:scale-95 cursor-pointer text-green-700" />
-                    </Link>
-                    <AiOutlineDelete
-                      onClick={() => handleDelete(e.id)}
-                      className="active:scale-95 cursor-pointer text-red-800"
-                    />
-                  </div>
+            {data?.data?.length ? (
+              data?.data?.map((e: StoreType) => (
+                <tr key={e?.id}>
+                  <td>{e.id}</td>
+                  <td>{e.name}</td>
+                  <td>{e.slug}</td>
+                  <td>{e.disc}</td>
+                  <td>{e.status}</td>
+                  <td>
+                    <div className="flex items-center justify-center gap-2 text-xl">
+                      <Link to={`/dashboard/stores/update/${e.id}`}>
+                        <BiEditAlt className="active:scale-95 cursor-pointer text-green-700" />
+                      </Link>
+                      <AiOutlineDelete
+                        onClick={() => handleDelete(e.id)}
+                        className="active:scale-95 cursor-pointer text-red-800"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  className="text-center font-semibold text-xl text-slate-500"
+                  colSpan={6}
+                >
+                  No data to show
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
+      </div>
+      <div className="mt-10">
+        <Pagination data={data} />
       </div>
     </DashboardContainer>
   );
