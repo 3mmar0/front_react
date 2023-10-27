@@ -99,7 +99,7 @@ const CreateCategory = () => {
         />
         <div className="p-2">
           <img
-            src={image?.imgPrev[0]}
+            src={image?.img && URL?.createObjectURL(image?.img)}
             className="h-24 w-24 object-contain"
             alt=""
           />

@@ -24,12 +24,14 @@ const Categories = () => {
     states: "categories",
     allData: categories,
   });
+
   const { handleDelete, loading: delLD } = useDelete({
     states: "deleteCategory",
     delFun: deleteCategory,
     recalFun: categories,
     clearFun: clearErrors(),
   });
+
   if (loading || delLD) {
     return <Loader />;
   }
@@ -56,29 +58,40 @@ const Categories = () => {
             </tr>
           </thead>
           <tbody>
-            {data?.data?.map((e: CategoryType) => (
-              <tr key={e?.id}>
-                <td>{e.id}</td>
-                <td>{e.name}</td>
-                <td>{e.slug}</td>
-                <td>{e.disc}</td>
-                <td className="text-center">
-                  {e?.parent?.name ? e?.parent?.name : "Main"}
-                </td>
-                <td>{e.status}</td>
-                <td>
-                  <div className="flex items-center justify-center gap-2 text-xl">
-                    <Link to={`/dashboard/categories/update/${e.id}`}>
-                      <BiEditAlt className="active:scale-95 cursor-pointer text-green-700" />
-                    </Link>
-                    <AiOutlineDelete
-                      onClick={() => handleDelete(e.id)}
-                      className="active:scale-95 cursor-pointer text-red-800"
-                    />
-                  </div>
+            {data?.data?.length ? (
+              data?.data?.map((e: CategoryType) => (
+                <tr key={e?.id}>
+                  <td>{e.id}</td>
+                  <td>{e.name}</td>
+                  <td>{e.slug}</td>
+                  <td>{e.disc}</td>
+                  <td className="text-center">
+                    {e?.parent?.name ? e?.parent?.name : "Main"}
+                  </td>
+                  <td>{e.status}</td>
+                  <td>
+                    <div className="flex items-center justify-center gap-2 text-xl">
+                      <Link to={`/dashboard/categories/update/${e.id}`}>
+                        <BiEditAlt className="active:scale-95 cursor-pointer text-green-700" />
+                      </Link>
+                      <AiOutlineDelete
+                        onClick={() => handleDelete(e.id)}
+                        className="active:scale-95 cursor-pointer text-red-800"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  className="text-center font-semibold text-xl text-slate-500"
+                  colSpan={7}
+                >
+                  No data to show
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

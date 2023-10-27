@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const uploadImg = (e) => {
+export const uploadImg = (e: unknown) => {
   const reader = new FileReader();
   reader.onload = () => {};
 

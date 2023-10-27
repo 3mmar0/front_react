@@ -1,7 +1,5 @@
-import useGet from "@/Hook/useGet";
 import DashHeader from "@/components/layouts/DashHeader";
 import DashSidebar from "@/components/layouts/DashSidebar";
-import { categories } from "@/slices/categories/categoryAction";
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
 

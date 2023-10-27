@@ -17,7 +17,10 @@ export const forgetPass = createAsyncThunk(
 );
 export const ressetPass = createAsyncThunk(
   "auth/resset-pass",
-  async (args: { email: string; otp: number; password: string }, thunkAPI) => {
+  async (
+    args: { email: string; otp: string | undefined; password: string },
+    thunkAPI
+  ) => {
     const { rejectWithValue } = thunkAPI;
     try {
       const { data } = await axios.post("/password/reset", args);

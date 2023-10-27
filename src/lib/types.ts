@@ -6,6 +6,8 @@ export interface UserData {
   password?: string;
   phone?: string;
   country?: string;
+  token?: string;
+  otp?: string;
 }
 
 export interface DataLinks {
@@ -39,11 +41,45 @@ export interface CategoryType {
   parent?: CategoryType;
 }
 
+export interface ProductType {
+  id?: string;
+  store_id?: string;
+  category_id?: string;
+  name?: string;
+  slug?: string;
+  disc?: string;
+  tags?: string;
+  price?: string;
+  compare_price?: string;
+  options?: string;
+  rating?: string;
+  image?: string;
+  type?: string;
+  status?: string;
+  created_at?: string;
+  updated_at?: string;
+  // parent?: CategoryType;
+}
+
 export interface Slice<T> {
   loading: boolean | null;
   success: boolean | null;
   msg: string;
-  user?: T | object | null;
-  errors: object | string;
-  data: T | object | null | [];
+  user?: T | null;
+  errors: T | null;
+  data: T | T[] | null;
+}
+
+export interface PaginationType {
+  first_page_url?: string;
+  prev_page_url?: string;
+  links?:
+    | undefined
+    | {
+        url?: string;
+        active?: string;
+        label?: string;
+      }[];
+  next_page_url?: string;
+  last_page_url?: string;
 }

@@ -13,10 +13,10 @@ const useGet = ({
 }) => {
   const { search } = useLocation();
 
-  const { loading, data, errors, success } = useAppSelector(
-    (state) => state[`${states}`]
-  );
   const dispatch = useAppDispatch();
+  const { loading, data, errors, success } = useAppSelector(
+    (state) => state[`${states}`] //state.categories or state['categories']
+  );
 
   useEffect(() => {
     const fetchData = () => {

@@ -1,4 +1,4 @@
-import { FC, InputHTMLAttributes } from "react";
+import { FC, InputHTMLAttributes, ReactNode } from "react";
 import Label from "../ui/Label";
 import Input from "../ui/Input";
 import { cn } from "@/lib/utils";
@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;
+  sufixIcon?: ReactNode;
 }
 
 const FormInput: FC<FormInputProps> = ({
@@ -13,6 +14,7 @@ const FormInput: FC<FormInputProps> = ({
   type,
   label,
   error,
+  sufixIcon,
   ...props
 }) => {
   const onErr = error ? "block" : "hidden";
@@ -24,6 +26,7 @@ const FormInput: FC<FormInputProps> = ({
         name={name}
         type={type}
         id={name}
+        sufixIcon={sufixIcon}
         {...props}
       />
       <span className={cn(onErr, "text-red-700 text-[13px] font-semibold")}>

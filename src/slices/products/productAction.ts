@@ -1,11 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../axios";
 import Cookies from "universal-cookie";
-import { AxiosError } from "axios";
 
 const cookies = new Cookies();
-const user = cookies.get("token");
-const TOKEN = `Bearer ${user}`;
+const token = cookies.get("token");
+const TOKEN = `Bearer ${token}`;
 const config = {
   headers: {
     Authorization: TOKEN,
@@ -14,16 +13,16 @@ const config = {
 
 // ****************************** //
 // ****************************** //
-// *********** Stores *********** //
+// *********** Products *********** //
 // ****************************** //
 // ****************************** //
 // *********** Create *********** //
-export const createStore = createAsyncThunk(
-  "stores/create",
+export const createProduct = createAsyncThunk(
+  "products/create",
   async (args: FormData, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const { data } = await axios.post("/dashboard/stores", args, config);
+      const { data } = await axios.post("/dashboard/products", args, config);
       return data;
     } catch (err) {
       if (err?.response?.data?.message === "Unauthenticated.") {
@@ -34,47 +33,50 @@ export const createStore = createAsyncThunk(
   }
 );
 // *********** Update *********** //
-export const updateStore = createAsyncThunk(
-  "stores/update",
+export const updateProduct = createAsyncThunk(
+  "products/update",
   async (args: { dat: FormData; id: number }, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
       const { data } = await axios.post(
-        `/dashboard/stores/${args.id}`,
+        `/dashboard/products/${args.id}`,
         args.dat,
         config
       );
       return data;
     } catch (err) {
-      if (err.response?.data?.message === "Unauthenticated.") {
-        return rejectWithValue(err.response?.data?.message);
+      if (err?.response?.data?.message === "Unauthenticated.") {
+        return rejectWithValue(err?.response?.data?.message);
       }
-      return rejectWithValue(err.response?.data);
+      return rejectWithValue(err?.response?.data);
     }
   }
 );
 // *********** All *********** //
-export const stores = createAsyncThunk("stores/all", async (args, thunkAPI) => {
-  const { rejectWithValue } = thunkAPI;
-  try {
-    const { data } = await axios.get("/dashboard/stores", config);
-    return data;
-  } catch (_err) {
-    const err: AxiosError = _err;
-    if (err?.response?.data === "Unauthenticated.") {
+export const products = createAsyncThunk(
+  "products/all",
+  async (args, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const { data } = await axios.get(`/dashboard/products${args}`, config);
+
+      return data;
+    } catch (err) {
+      if (err?.response?.data?.message === "Unauthenticated.") {
+        return rejectWithValue(err?.response?.data?.message);
+      }
+
       return rejectWithValue(err?.response?.data);
     }
-
-    return rejectWithValue(err?.response?.data);
   }
-});
+);
 // *********** Single *********** //
-export const singleStore = createAsyncThunk(
-  "stores/single",
+export const singleProduct = createAsyncThunk(
+  "products/single",
   async (args: number, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const { data } = await axios.get(`/dashboard/stores/${args}`, config);
+      const { data } = await axios.get(`/dashboard/products/${args}`, config);
       return data;
     } catch (err) {
       if (err?.response?.data?.message === "Unauthenticated.") {
@@ -86,12 +88,15 @@ export const singleStore = createAsyncThunk(
   }
 );
 // *********** Delete *********** //
-export const deleteStore = createAsyncThunk(
-  "stores/delete",
+export const deleteProduct = createAsyncThunk(
+  "products/delete",
   async (args: number | undefined, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const { data } = await axios.delete(`/dashboard/stores/${args}`, config);
+      const { data } = await axios.delete(
+        `/dashboard/products/${args}`,
+        config
+      );
       return data;
     } catch (err) {
       if (err?.response?.data?.message === "Unauthenticated.") {
@@ -103,6 +108,6 @@ export const deleteStore = createAsyncThunk(
   }
 );
 // *********** ClearErrrors *********** //
-export const clearErrors = createAsyncThunk("stores/clear", async () => {
+export const clearErrors = createAsyncThunk("products/clear", async () => {
   return true;
 });

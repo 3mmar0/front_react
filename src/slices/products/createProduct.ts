@@ -1,31 +1,31 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { clearErrors, stores } from "./storeAction";
-import { Slice, StoreType } from "@/lib/types";
+import { clearErrors, createProduct } from "./productAction";
+import { Slice } from "@/lib/types";
 
-const initialState: Slice<StoreType> = {
+const initialState: Slice<object> = {
   loading: null,
   success: null,
   msg: "",
   errors: {},
-  data: [],
+  data: {},
 };
 
-const StoresSlice = createSlice({
-  name: "stores",
+const CreateProductSlice = createSlice({
+  name: "prodcuts",
   initialState,
   reducers: {},
   extraReducers: {
-    // *********** register ********** //
-    [stores.pending.type]: (state: Slice<StoreType>) => {
+    // *********** Create - Store ********** //
+    [createProduct.pending.type]: (state: Slice<object>) => {
       state.loading = true;
       state.msg = "";
-      state.data = [];
+      state.data = {};
       state.errors = {};
       state.success = null;
     },
-    [stores.fulfilled.type]: (
-      state: Slice<StoreType>,
-      action: PayloadAction<Slice<StoreType>>
+    [createProduct.fulfilled.type]: (
+      state: Slice<object>,
+      action: PayloadAction<Slice<object>>
     ) => {
       state.loading = false;
       state.success = action.payload.success;
@@ -33,16 +33,16 @@ const StoresSlice = createSlice({
       state.data = action.payload.data;
       state.errors = {};
     },
-    [stores.rejected.type]: (
-      state: Slice<StoreType>,
-      action: PayloadAction<Slice<StoreType>>
+    [createProduct.rejected.type]: (
+      state: Slice<object>,
+      action: PayloadAction<Slice<object>>
     ) => {
       state.loading = false;
       state.success = false;
       state.msg = action.payload?.msg;
-      state.errors = action.payload?.errors || String(action.payload);
+      state.errors = action.payload?.errors;
     },
-    [clearErrors.fulfilled.type]: (state: Slice<StoreType>) => {
+    [clearErrors.fulfilled.type]: (state: Slice<object>) => {
       state.loading = false;
       state.success = null;
       state.msg = "";
@@ -51,4 +51,4 @@ const StoresSlice = createSlice({
   },
 });
 
-export default StoresSlice.reducer;
+export default CreateProductSlice.reducer;

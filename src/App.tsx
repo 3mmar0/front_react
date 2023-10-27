@@ -12,7 +12,6 @@ import CreateProduct from "./pages/dashboard/products/createProduct";
 import Stores from "@/pages/dashboard/stores/stores";
 import CreateStore from "./pages/dashboard/stores/createStore";
 import FotgetPassword from "./pages/fotgetPassword";
-import AdminUser from "./middlewares/AdminUser";
 import RessetPassword from "./pages/ressetPassword";
 import Profile from "./pages/profile";
 import UpdateStore from "./pages/dashboard/stores/updateStore";
@@ -20,6 +19,8 @@ import AuthUser from "./middlewares/AuthUser";
 import Categories from "./pages/dashboard/categories/categories";
 import UpdateCategory from "./pages/dashboard/categories/updateCategory";
 import CreateCategory from "./pages/dashboard/categories/createCategory";
+import UpdateProduct from "./pages/dashboard/products/updateProduct";
+import AdminUser from "./middlewares/AdminUser";
 
 const router = createBrowserRouter([
   {
@@ -77,9 +78,9 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: (
-          // <AdminUser>
+          <AdminUser>
             <Dash />
-          // </AdminUser>
+          </AdminUser>
         ),
         children: [
           // Products
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
           {
             path: "products/create",
             element: <CreateProduct />,
+          },
+          {
+            path: "products/update/:id",
+            element: <UpdateProduct />,
           },
           // stores
           {
