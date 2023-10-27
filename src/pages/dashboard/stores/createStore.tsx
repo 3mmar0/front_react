@@ -31,6 +31,7 @@ const CreateStore: FC<createStoreProps> = () => {
   const [name, setname] = useState<string>("");
   const [disc, setdisc] = useState<string>("");
   const [errs, seterrs] = useState<StoreType>();
+  
   const fetchData = async (e: FormEvent) => {
     e.preventDefault();
     const formData = new FormData();

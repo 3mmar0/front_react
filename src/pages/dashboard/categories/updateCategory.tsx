@@ -33,14 +33,15 @@ const UpdateCategory = () => {
     states: "singleCategory",
     callFun: singleCategory,
   });
+
   const {
-    handleUpdate,
     loading: updateLD,
     errors,
+    handleUpdate,
   } = useUpdate({
     states: "updateCategory",
     updateFun: updateCategory,
-    clearFun: clearErrors(),
+    clearFn: clearErrors,
   });
 
   const [name, setname] = useState<string>("");

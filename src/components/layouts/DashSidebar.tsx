@@ -8,6 +8,7 @@ import {
 } from "react-icons/ai";
 import { BiSolidGridAlt, BiSolidStore } from "react-icons/bi";
 import NavItem from "./NavItem";
+import { FaShapes } from "react-icons/fa";
 
 interface DashSidebarProps {}
 

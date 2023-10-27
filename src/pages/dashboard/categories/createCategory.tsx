@@ -63,7 +63,7 @@ const CreateCategory = () => {
     <DashboardContainer className="" ttl="Categories" links={links}>
       <FormModel
         className="mx-auto"
-        title="create new Ccategory"
+        title="create new Category"
         disc=""
         isOauth={false}
         onSubmit={fetchData}
