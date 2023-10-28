@@ -22,12 +22,20 @@ import updateProduct from "@/slices/products/updateProduct";
 import { configureStore } from "@reduxjs/toolkit";
 import globalCategories from "@/slices/globals/globalCategories";
 import globalStores from "@/slices/globals/globalStores";
+import carusels from "@/slices/carusel/carusels";
+import singleCarusel from "@/slices/carusel/singleCarusel";
+import createCarusel from "@/slices/carusel/createCarusel";
+import updateCarusel from "@/slices/carusel/updateCarusel";
+import deleteCarusel from "@/slices/carusel/deleteCarusel";
+import home from "@/slices/home/home";
 
 export const store = configureStore({
   reducer: {
     // Globals
     GlobalCats: globalCategories,
     GlobalStores: globalStores,
+    // Home
+    home: home,
     // Auth
     profile: profile,
     updateProfile,
@@ -53,6 +61,12 @@ export const store = configureStore({
     createProduct,
     updateProduct,
     deleteProduct,
+    // carusels
+    carusels: carusels,
+    singleCarusel: singleCarusel,
+    createCarusel: createCarusel,
+    updateCarusel: updateCarusel,
+    deleteCarusel: deleteCarusel,
   },
 });
 

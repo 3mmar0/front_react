@@ -2,6 +2,7 @@ import { IsMatch } from "@/components/hook/hooks";
 import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import { globalCategories, globalStores } from "@/slices/globals/globalsAction";
+import { home } from "@/slices/home/homeAction";
 import { useAppDispatch } from "@/store/hooks";
 import { FC, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
@@ -18,6 +19,7 @@ const Root: FC<mainProps> = () => {
     const fetchData = () => {
       dispatch(globalCategories(""));
       dispatch(globalStores(""));
+      dispatch(home(""));
     };
     fetchData();
   }, [dispatch]);

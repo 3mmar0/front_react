@@ -1,9 +1,12 @@
 import MetaDate from "@/lib/metaDate";
+import { HomeType } from "@/lib/types";
+import { useAppSelector } from "@/store/hooks";
 import { FC } from "react";
 
 interface homeProps {}
 
 const Home: FC<homeProps> = () => {
+  const home = useAppSelector((state) => state.home);
   return (
     <div className="flex-1 mt-[70px]">
       <MetaDate ttl="Home - page" />
@@ -37,30 +40,12 @@ const Home: FC<homeProps> = () => {
           Best Categories
         </h2>
         <div className="h-[100px] w-full flex flex-nowrap gap-3 overflow-auto p-3">
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
-          <div className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"></div>
+          {(home?.data as HomeType)?.categories?.map((e) => (
+            <div
+              key={e?.id}
+              className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"
+            ></div>
+          ))}
         </div>
       </section>
     </div>

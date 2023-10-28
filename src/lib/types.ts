@@ -61,6 +61,19 @@ export interface ProductType {
   // parent?: CategoryType;
 }
 
+export interface CaruselType {
+  id?: string;
+  image?: string;
+}
+export interface HomeType {
+  carusels?: CaruselType[];
+  categories?: CategoryType[];
+  newProd?: ProductType[];
+  topProd?: ProductType[];
+  hotProd?: ProductType[];
+  bestSellingProd?: ProductType[];
+}
+
 export interface Slice<T> {
   loading: boolean | null;
   success: boolean | null;

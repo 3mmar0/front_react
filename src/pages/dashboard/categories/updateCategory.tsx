@@ -14,7 +14,7 @@ import {
   singleCategory,
   updateCategory,
 } from "@/slices/categories/categoryAction";
-import { FC, FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const links = [
@@ -47,7 +47,7 @@ const UpdateCategory = () => {
   const [name, setname] = useState<string>("");
   const [disc, setdisc] = useState<string>("");
   const [parent_id, setparent_id] = useState<string>("");
-  const [image, setimage] = useState<object>();
+  const [image, setimage] = useState<{ img?: File; imgApi?: string | null }>();
   const [status, setstatus] = useState("");
   const [errs, seterrs] = useState<CategoryType>();
 
@@ -114,7 +114,7 @@ const UpdateCategory = () => {
           onChange={(e) => setparent_id(e.target.value)}
           error={errs?.parent_id}
           emptyOption="Main category"
-          options={data?.categories?.map((e) => {
+          options={data?.categories?.map((e: CategoryType) => {
             if (e?.id == data?.id) {
               return;
             }
