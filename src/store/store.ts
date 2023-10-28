@@ -20,9 +20,14 @@ import singleProduct from "@/slices/products/singleProduct";
 import products from "@/slices/products/products";
 import updateProduct from "@/slices/products/updateProduct";
 import { configureStore } from "@reduxjs/toolkit";
+import globalCategories from "@/slices/globals/globalCategories";
+import globalStores from "@/slices/globals/globalStores";
 
 export const store = configureStore({
   reducer: {
+    // Globals
+    GlobalCats: globalCategories,
+    GlobalStores: globalStores,
     // Auth
     profile: profile,
     updateProfile,

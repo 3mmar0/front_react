@@ -70,6 +70,7 @@ const UpdateCategory = () => {
       setstatus(data?.status);
     }
   }, [data]);
+  console.log(parent_id);
 
   useEffect(() => {
     if (Object.keys(errors).length !== 0) {
@@ -84,7 +85,7 @@ const UpdateCategory = () => {
     <DashboardContainer className="" ttl="Categories" links={links}>
       <FormModel
         className="mx-auto"
-        title="create new store"
+        title="Update Category"
         disc=""
         isOauth={false}
         onSubmit={fetchData}
@@ -104,6 +105,20 @@ const UpdateCategory = () => {
           name="disc"
           placeholder="Store disc"
           error={errors?.disc}
+        />
+        <InputSelect
+          label="Parent category"
+          name="parent_id"
+          value={parent_id}
+          onChange={(e) => setparent_id(e.target.value)}
+          error={errs?.parent_id}
+          emptyOption="Main category"
+          options={data?.categories?.map((e) => {
+            if (e?.id == data?.id) {
+              return;
+            }
+            return { val: e?.id, name: e?.name };
+          })}
         />
         <InputFile
           name="image"

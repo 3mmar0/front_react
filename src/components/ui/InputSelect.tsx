@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 interface InputSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   name?: string;
   label?: string;
+  emptyOption?: string;
   options?: {
     name: string;
     val: string;
@@ -16,6 +17,7 @@ const InputSelect: FC<InputSelectProps> = ({
   name,
   label,
   options,
+  emptyOption,
   error,
   ...props
 }) => {
@@ -30,11 +32,16 @@ const InputSelect: FC<InputSelectProps> = ({
         {...props}
       >
         <option hidden>Select {label}</option>
-        {options?.map((e) => (
-          <option key={e.val} value={e.val}>
-            {e.name}
-          </option>
-        ))}
+        {emptyOption && <option value={null || ""}>{emptyOption}</option>}
+        {options?.map((e) => {
+          return (
+            e?.val && (
+              <option key={e?.val} value={e?.val}>
+                {e?.name}
+              </option>
+            )
+          );
+        })}
       </select>
       <span className={cn(onErr, "text-red-700 text-[13px] font-semibold")}>
         *{error}

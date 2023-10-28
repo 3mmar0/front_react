@@ -9,7 +9,6 @@ const initialState: Slice<UserData> = {
   loading: null,
   success: null,
   msg: "",
-  user: {},
   errors: {},
   data: {},
 };
@@ -23,7 +22,7 @@ const LoginAuthSlice = createSlice({
     [registerUser.pending.type]: (state: Slice<UserData>) => {
       state.loading = true;
       state.msg = "";
-      state.user = {};
+      state.data = {};
       state.errors = {};
       state.success = null;
     },
@@ -34,14 +33,13 @@ const LoginAuthSlice = createSlice({
       state.loading = false;
       state.success = action.payload.success;
       state.msg = action.payload.msg;
-      state.user = action.payload.data;
-      state.errors = {};
-      if (state?.user?.email) {
+      state.data = action.payload.data;
+      if ((state?.data as UserData).email) {
         cookies.set("user", JSON.stringify(state.user), {
           path: "/",
           maxAge: 3600 * 24 * 10,
         });
-        cookies.set("token", JSON.stringify(state.user.token), {
+        cookies.set("token", JSON.stringify((state?.data as UserData).token), {
           path: "/",
           maxAge: 3600 * 24 * 10,
         });

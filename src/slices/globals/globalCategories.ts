@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { clearErrors, categories } from "./categoryAction";
+import { clearErrors, globalCategories } from "./globalsAction";
 import { Slice, CategoryType } from "@/lib/types";
 
 const initialState: Slice<CategoryType> = {
@@ -10,20 +10,20 @@ const initialState: Slice<CategoryType> = {
   data: [],
 };
 
-const CategoriesSlice = createSlice({
-  name: "categories",
+const GlobalCategoriesSlice = createSlice({
+  name: "globals",
   initialState,
   reducers: {},
   extraReducers: {
     // *********** register ********** //
-    [categories.pending.type]: (state: Slice<CategoryType>) => {
+    [globalCategories.pending.type]: (state: Slice<CategoryType>) => {
       state.loading = true;
       state.msg = "";
       state.data = [];
       state.errors = {};
       state.success = null;
     },
-    [categories.fulfilled.type]: (
+    [globalCategories.fulfilled.type]: (
       state: Slice<CategoryType>,
       action: PayloadAction<Slice<CategoryType>>
     ) => {
@@ -33,7 +33,7 @@ const CategoriesSlice = createSlice({
       state.data = action.payload.data;
       state.errors = {};
     },
-    [categories.rejected.type]: (
+    [globalCategories.rejected.type]: (
       state: Slice<CategoryType>,
       action: PayloadAction<Slice<CategoryType>>
     ) => {
@@ -51,4 +51,4 @@ const CategoriesSlice = createSlice({
   },
 });
 
-export default CategoriesSlice.reducer;
+export default GlobalCategoriesSlice.reducer;

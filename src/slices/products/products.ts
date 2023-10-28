@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { clearErrors, products } from "./productAction";
 import { Slice, ProductType } from "@/lib/types";
 
-const initialState: Slice<ProductType[]> = {
+const initialState: Slice<ProductType> = {
   loading: null,
   success: null,
   msg: "",
@@ -16,7 +16,7 @@ const ProductsSlice = createSlice({
   reducers: {},
   extraReducers: {
     // *********** register ********** //
-    [products.pending.type]: (state: Slice<ProductType[]>) => {
+    [products.pending.type]: (state: Slice<ProductType>) => {
       state.loading = true;
       state.msg = "";
       state.data = [];
@@ -24,8 +24,8 @@ const ProductsSlice = createSlice({
       state.success = null;
     },
     [products.fulfilled.type]: (
-      state: Slice<ProductType[]>,
-      action: PayloadAction<Slice<ProductType[]>>
+      state: Slice<ProductType>,
+      action: PayloadAction<Slice<ProductType>>
     ) => {
       state.loading = false;
       state.success = action.payload.success;
@@ -34,15 +34,15 @@ const ProductsSlice = createSlice({
       state.errors = {};
     },
     [products.rejected.type]: (
-      state: Slice<ProductType[]>,
-      action: PayloadAction<Slice<ProductType[]>>
+      state: Slice<ProductType>,
+      action: PayloadAction<Slice<ProductType>>
     ) => {
       state.loading = false;
       state.success = false;
       state.msg = action.payload?.msg;
-      state.errors = action.payload?.errors || action.payload;
+      state.errors = action.payload?.errors;
     },
-    [clearErrors.fulfilled.type]: (state: Slice<ProductType[]>) => {
+    [clearErrors.fulfilled.type]: (state: Slice<ProductType>) => {
       state.loading = false;
       state.success = null;
       state.msg = "";

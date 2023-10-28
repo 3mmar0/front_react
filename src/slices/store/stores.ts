@@ -40,7 +40,7 @@ const StoresSlice = createSlice({
       state.loading = false;
       state.success = false;
       state.msg = action.payload?.msg;
-      state.errors = action.payload?.errors || String(action.payload);
+      state.errors = action.payload?.errors;
     },
     [clearErrors.fulfilled.type]: (state: Slice<StoreType>) => {
       state.loading = false;

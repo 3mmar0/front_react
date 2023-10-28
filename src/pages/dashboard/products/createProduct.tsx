@@ -9,6 +9,7 @@ import { ProductType } from "@/lib/types";
 import { uploadImg } from "@/lib/utils";
 import FormModel from "@/models/form-model";
 import { clearErrors, createProduct } from "@/slices/products/productAction";
+import { useAppSelector } from "@/store/hooks";
 
 import { FormEvent, useEffect, useState } from "react";
 
@@ -29,10 +30,13 @@ const CreateProduct = () => {
     clearFun: clearErrors(),
   });
 
+  const cats = useAppSelector((state) => state["GlobalCats"]);
+  const stores = useAppSelector((state) => state.GlobalStores);
+
   const [name, setname] = useState<string>("");
   const [disc, setdisc] = useState<string>("");
   const [category_id, setcategory_id] = useState<string>("");
-  const [store_id, setstore_id] = useState<string>("1");
+  const [store_id, setstore_id] = useState<string>("");
   const [price, setprice] = useState<string>("");
   const [compare_price, setcompare_price] = useState<string>("");
   const [tags, settags] = useState<string>("");
@@ -114,14 +118,18 @@ const CreateProduct = () => {
           name="category_id"
           onChange={(e) => setcategory_id(e.target.value)}
           error={errs?.category_id}
-          options={[]}
+          options={cats?.data?.map((e) => {
+            return { val: e?.id, name: e?.name };
+          })}
         />
         <InputSelect
           label="store"
           name="store_id"
           onChange={(e) => setstore_id(e.target.value)}
           error={errs?.store_id}
-          options={[]}
+          options={stores?.data?.map((e) => {
+            return { val: e?.id, name: e?.name };
+          })}
         />
         <InputFile
           name="image"

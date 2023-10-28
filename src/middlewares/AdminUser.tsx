@@ -10,7 +10,7 @@ const AdminUser = ({ children }: { children: React.ReactNode }) => {
   }
 
   if (user && user?.role !== "admin" && user?.role !== "super-admin") {
-    return;
+    return (window.location.href = "/");
   }
 
   return children;

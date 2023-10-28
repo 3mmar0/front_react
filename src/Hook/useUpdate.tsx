@@ -9,7 +9,7 @@ const useUpdate = ({
   clearFun,
 }: {
   states: string;
-  updateFun: (id: number | undefined) => AnyAction;
+  updateFun: (data?: FormData) => AnyAction;
   clearFun: () => AnyAction;
 }) => {
   const { loading, msg, errors, success } = useAppSelector(
@@ -17,7 +17,7 @@ const useUpdate = ({
   );
   const dispatch = useAppDispatch();
 
-  const handleUpdate = (data) => {
+  const handleUpdate = (data: FormData) => {
     dispatch(updateFun(data));
   };
 

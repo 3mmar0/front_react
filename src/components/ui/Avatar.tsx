@@ -30,7 +30,6 @@ const Avatar: FC<AvatarProps> = () => {
 
   useEffect(() => {
     const closeCard = (e: MouseEvent) => {
-      console.log(e);
       if (!userCard?.current?.contains(e.target)) {
         setopen(false);
       }

@@ -1,114 +1,42 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../axios";
-import Cookies from "universal-cookie";
-
-const cookies = new Cookies();
-const token = cookies.get("token");
-const TOKEN = `Bearer ${token}`;
-const config = {
-  headers: {
-    Authorization: TOKEN,
-  },
-};
+import {
+  reduxSnipitCreate,
+  reduxSnipitDelete,
+  reduxSnipitGet,
+  reduxSnipitSingle,
+  reduxSnipitUpdate,
+} from "@/lib/utils";
 
 // ****************************** //
 // ****************************** //
 // *********** Categories *********** //
 // ****************************** //
 // ****************************** //
-// *********** Create *********** //
-export const createCategory = createAsyncThunk(
-  "categories/create",
-  async (args: FormData, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      const { data } = await axios.post("/dashboard/categories", args, config);
-      return data;
-    } catch (err) {
-      if (err?.response?.data?.message === "Unauthenticated.") {
-        return rejectWithValue(err?.response?.data?.message);
-      }
-      return rejectWithValue(err?.response?.data);
-    }
-  }
-);
-// *********** Update *********** //
-export const updateCategory = createAsyncThunk(
-  "categories/update",
-  async (args: { dat: FormData; id: number }, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      const { data } = await axios.post(
-        `/dashboard/categories/${args.id}`,
-        args.dat,
-        config
-      );
-      return data;
-    } catch (err) {
-      if (err?.response?.data?.message === "Unauthenticated.") {
-        return rejectWithValue(err?.response?.data?.message);
-      }
-      return rejectWithValue(err?.response?.data);
-    }
-  }
-);
 // *********** All *********** //
-export const categories = createAsyncThunk(
-  "categories/all",
-  async (args, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      const { data } = await axios.get(
-        `/dashboard/categories${args ? args : ""}`,
-        config
-      );
-      return data;
-    } catch (err) {
-      if (err?.response?.data?.message === "Unauthenticated.") {
-        return rejectWithValue(err?.response?.data?.message);
-      }
-
-      return rejectWithValue(err?.response?.data);
-    }
-  }
-);
+export const categories = reduxSnipitGet({
+  name: "categories/all",
+  url: "/dashboard/categories",
+});
 // *********** Single *********** //
-export const singleCategory = createAsyncThunk(
-  "categories/single",
-  async (args: number, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      const { data } = await axios.get(`/dashboard/categories/${args}`, config);
-      return data;
-    } catch (err) {
-      if (err?.response?.data?.message === "Unauthenticated.") {
-        return rejectWithValue(err?.response?.data?.message);
-      }
-
-      return rejectWithValue(err?.response?.data);
-    }
-  }
-);
+export const singleCategory = reduxSnipitSingle({
+  name: "categories/single",
+  url: "/dashboard/categories",
+});
+// *********** Create *********** //
+export const createCategory = reduxSnipitCreate({
+  name: "categories/create",
+  url: "/dashboard/categories",
+});
+// *********** Update *********** //
+export const updateCategory = reduxSnipitUpdate({
+  name: "categories/update",
+  url: "/dashboard/categories",
+});
 // *********** Delete *********** //
-export const deleteCategory = createAsyncThunk(
-  "categories/delete",
-  async (args: number | undefined, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      const { data } = await axios.delete(
-        `/dashboard/categories/${args}`,
-        config
-      );
-      return data;
-    } catch (err) {
-      if (err?.response?.data?.message === "Unauthenticated.") {
-        return rejectWithValue(err?.response?.data?.message);
-      }
-
-      return rejectWithValue(err?.response?.data);
-    }
-  }
-);
+export const deleteCategory = reduxSnipitDelete({
+  name: "categories/delete",
+  url: "/dashboard/categories",
+});
 // *********** ClearErrrors *********** //
 export const clearErrors = createAsyncThunk("categories/clear", async () => {
   return true;

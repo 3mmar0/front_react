@@ -1,12 +1,12 @@
+import useUpdate from "@/Hook/useUpdate";
 import Loader from "@/components/Loader";
 import FormInput from "@/components/form/FormInput";
 import { Button } from "@/components/ui/Button";
 import InputFile from "@/components/ui/InputFile";
+import { uploadImg } from "@/lib/utils";
 import FormModel from "@/models/form-model";
 import { clearErrors, updateProfile } from "@/slices/profile/profileAction";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { FC, FormEvent, useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import Cookies from "universal-cookie";
 const cookie = new Cookies();
 const user = cookie.get("user");
@@ -14,52 +14,31 @@ const user = cookie.get("user");
 interface profileProps {}
 
 const Profile: FC<profileProps> = () => {
-  const dispatch = useAppDispatch();
-  const { loading, success, msg, errors } = useAppSelector(
-    (state) => state.updateProfile
-  );
+  const { loading, handleUpdate, errors } = useUpdate({
+    states: "updateProfile",
+    updateFun: updateProfile,
+    clearFun: clearErrors(),
+  });
   const [first_name, setfirst_name] = useState<string>("");
   const [last_name, setlast_name] = useState<string>("");
   const [email, setemail] = useState<string>("");
   const [phone, setphone] = useState<string>("");
-  const [image, setimage] = useState<string>("");
-  const [imagePreview, setimagePreview] = useState("");
+  const [image, setimage] = useState<{ img: File }>();
   const [birthday, setbirthday] = useState<string>("");
 
-  const handleImg = (e) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      setimagePreview(reader.result);
-    };
-
-    reader.readAsDataURL(e.target.files[0]);
-    setimage(e.target.files[0]);
-  };
-
-  const handleUpdate = (e: FormEvent) => {
+  const handleFormUpdate = (e: FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
     first_name && formData.append("first_name", first_name);
     last_name && formData.append("last_name", last_name);
     email && formData.append("email", email);
     phone && formData.append("phone", phone);
-    image && formData.append("image", image);
+    image?.img && formData.append("image", image?.img);
     birthday && formData.append("birthday", birthday);
     formData.append("_method", "put");
 
-    dispatch(updateProfile(formData));
+    handleUpdate(formData);
   };
-
-  useEffect(() => {
-    if (success === true && msg) {
-      toast.success(msg);
-      // window.location.reload();
-    }
-    if (success === false && msg) {
-      toast.error(msg);
-    }
-    // return () => dispatch(clearErrors());
-  }, [success, msg]);
 
   useEffect(() => {
     if (user.email) {
@@ -90,7 +69,7 @@ const Profile: FC<profileProps> = () => {
       <FormModel
         title=""
         disc=""
-        onSubmit={handleUpdate}
+        onSubmit={handleFormUpdate}
         className="flex flex-col gap-3 mt-10 p-3 border border-slate-300 rounded-md shadow-md w-full"
       >
         <FormInput
@@ -146,14 +125,14 @@ const Profile: FC<profileProps> = () => {
         <InputFile
           label="image"
           name="image"
-          onChange={handleImg}
+          onChange={(e) => setimage(uploadImg(e))}
           error={errors?.image}
         />
         <div>
-          {imagePreview ? (
+          {image?.img ? (
             <img
               className="w-24 h-24 object-contain"
-              src={imagePreview}
+              src={image?.img && URL?.createObjectURL(image?.img)}
               alt=""
             />
           ) : (
