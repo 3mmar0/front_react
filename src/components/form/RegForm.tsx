@@ -6,7 +6,6 @@ import { Button } from "../ui/Button";
 import Loader from "../Loader";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import toast from "react-hot-toast";
-import { UserData } from "@/lib/types";
 import { registerUser } from "@/slices/reg/registerAction";
 import { Link } from "react-router-dom";
 
@@ -33,9 +32,14 @@ const RegForm: FC<RegFormProps> = ({ className }) => {
   const [last_name, setlast_name] = useState<string>("");
   const [erros, seterros] = useState<err>();
 
-  const fetchData = async (data: UserData, e: FormEvent) => {
+  const fetchData = async (e: FormEvent) => {
     e.preventDefault();
-    dispatch(registerUser(data));
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("first_name", first_name);
+    formData.append("last_name", last_name);
+    dispatch(registerUser(formData));
   };
 
   useEffect(() => {
@@ -57,7 +61,7 @@ const RegForm: FC<RegFormProps> = ({ className }) => {
 
   return (
     <FormModel
-      onSubmit={(e) => fetchData({ email, password, first_name, last_name }, e)}
+      onSubmit={(e) => fetchData(e)}
       title="Register Page"
       disc="Create new account"
       className={className}

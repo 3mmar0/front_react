@@ -9,7 +9,7 @@ const useCreate = ({
   clearFun,
 }: {
   states: string;
-  createFun: (id: number | undefined) => AnyAction;
+  createFun: (data: FormData) => AnyAction;
   clearFun: () => AnyAction;
 }) => {
   const dispatch = useAppDispatch();
@@ -17,7 +17,7 @@ const useCreate = ({
     (state) => state[`${states}`]
   );
 
-  const handleCreate = (data) => {
+  const handleCreate = (data: FormData) => {
     dispatch(createFun(data));
   };
 

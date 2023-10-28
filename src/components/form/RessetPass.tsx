@@ -19,16 +19,20 @@ const RessetPass: FC<RessetPassProps> = ({ className }) => {
   );
 
   const [email, setemail] = useState<string>("");
-  const [otp, setotp] = useState<string>();
+  const [otp, setotp] = useState<string>("");
   const [password, setpassword] = useState<string>("");
   const [open, setopen] = useState<boolean>(false);
 
   const handleForgetPass = (e: FormEvent) => {
     e.preventDefault();
+    const formData = new FormData();
     if (!email) {
       return toast.error("Email is required!!");
     }
-    dispatch(ressetPass({ email, otp, password }));
+    formData.append("email", email);
+    formData.append("otp", otp);
+    formData.append("password", password);
+    dispatch(ressetPass(formData));
   };
 
   useEffect(() => {

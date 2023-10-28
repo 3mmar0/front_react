@@ -22,9 +22,12 @@ const LoginForm: FC<LoginFormProps> = ({ className }) => {
   const [email, setemail] = useState<string>("");
   const [password, setpassword] = useState<string>("");
 
-  const fetchData = async (email: string, password: string, e: FormEvent) => {
+  const fetchData = (e: FormEvent) => {
     e.preventDefault();
-    dispatch(loginUser({ email, password }));
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+    dispatch(loginUser(formData));
   };
 
   useEffect(() => {
@@ -43,7 +46,7 @@ const LoginForm: FC<LoginFormProps> = ({ className }) => {
 
   return (
     <FormModel
-      onSubmit={(e) => fetchData(email, password, e)}
+      onSubmit={(e) => fetchData(e)}
       title="Sign In"
       disc="Continue to your store"
       className={className}

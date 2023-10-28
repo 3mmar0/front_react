@@ -1,4 +1,3 @@
-import useGet from "@/Hook/useGet";
 import DashHeader from "@/components/layouts/DashHeader";
 import DashSidebar from "@/components/layouts/DashSidebar";
 import { FC } from "react";
@@ -7,10 +6,6 @@ import { Outlet } from "react-router-dom";
 interface dashProps {}
 
 const Dash: FC<dashProps> = () => {
-  // useGet({
-  //   states: "globalCategories",
-  //   allData: globalCategories(),
-  // });
   return (
     <div className="flex flex-1">
       <DashSidebar />

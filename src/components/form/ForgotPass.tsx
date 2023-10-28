@@ -21,10 +21,12 @@ const ForgotPass: FC<ForgotPassProps> = ({ className }) => {
 
   const handleForgetPass = (e: FormEvent) => {
     e.preventDefault();
+    const formData = new FormData();
     if (!email) {
       return toast.error("Email is required!!");
     }
-    dispatch(forgetPass({ email }));
+    formData.append("email", email);
+    dispatch(forgetPass(formData));
   };
 
   useEffect(() => {

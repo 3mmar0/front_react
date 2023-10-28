@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { clearErrors, globalStores } from "./globalsAction";
 import { Slice, CategoryType } from "@/lib/types";
 
-const initialState: Slice<CategoryType[]> = {
+const initialState: Slice<CategoryType> = {
   loading: null,
   success: null,
   msg: "",
@@ -16,7 +16,7 @@ const GlobalCategoriesSlice = createSlice({
   reducers: {},
   extraReducers: {
     // *********** register ********** //
-    [globalStores.pending.type]: (state: Slice<CategoryType[]>) => {
+    [globalStores.pending.type]: (state: Slice<CategoryType>) => {
       state.loading = true;
       state.msg = "";
       state.data = [];
@@ -24,8 +24,8 @@ const GlobalCategoriesSlice = createSlice({
       state.success = null;
     },
     [globalStores.fulfilled.type]: (
-      state: Slice<CategoryType[]>,
-      action: PayloadAction<Slice<CategoryType[]>>
+      state: Slice<CategoryType>,
+      action: PayloadAction<Slice<CategoryType>>
     ) => {
       state.loading = false;
       state.success = action.payload.success;
@@ -34,15 +34,15 @@ const GlobalCategoriesSlice = createSlice({
       state.errors = {};
     },
     [globalStores.rejected.type]: (
-      state: Slice<CategoryType[]>,
-      action: PayloadAction<Slice<CategoryType[]>>
+      state: Slice<CategoryType>,
+      action: PayloadAction<Slice<CategoryType>>
     ) => {
       state.loading = false;
       state.success = false;
       state.msg = action.payload?.msg;
-      state.errors = action.payload?.errors || action.payload;
+      state.errors = action.payload?.errors;
     },
-    [clearErrors.fulfilled.type]: (state: Slice<CategoryType[]>) => {
+    [clearErrors.fulfilled.type]: (state: Slice<CategoryType>) => {
       state.loading = false;
       state.success = null;
       state.msg = "";

@@ -9,7 +9,7 @@ const useSingle = ({
   callFun,
 }: {
   states: string;
-  callFun: () => AnyAction;
+  callFun: (id: number) => AnyAction;
 }) => {
   const params = useParams()?.id;
   const { loading, data, errors, success, msg } = useAppSelector(
