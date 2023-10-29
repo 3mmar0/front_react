@@ -21,6 +21,9 @@ import UpdateCategory from "./pages/dashboard/categories/updateCategory";
 import CreateCategory from "./pages/dashboard/categories/createCategory";
 import UpdateProduct from "./pages/dashboard/products/updateProduct";
 import AdminUser from "./middlewares/AdminUser";
+import Carusels from "./pages/dashboard/carusels/carusels";
+import CreateCarusel from "./pages/dashboard/carusels/createCarusel";
+import UpdateCarusel from "./pages/dashboard/carusels/updateCarusel";
 
 const router = createBrowserRouter([
   {
@@ -121,6 +124,19 @@ const router = createBrowserRouter([
           {
             path: "categories/update/:id",
             element: <UpdateCategory />,
+          },
+          // carusels
+          {
+            path: "carusels",
+            element: <Carusels />,
+          },
+          {
+            path: "carusels/create",
+            element: <CreateCarusel />,
+          },
+          {
+            path: "carusels/update/:id",
+            element: <UpdateCarusel />,
           },
         ],
       },

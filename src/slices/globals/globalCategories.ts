@@ -41,6 +41,7 @@ const GlobalCategoriesSlice = createSlice({
       state.success = false;
       state.msg = action.payload?.msg;
       state.errors = action.payload?.errors;
+      console.log(action.payload);
     },
     [clearErrors.fulfilled.type]: (state: Slice<CategoryType>) => {
       state.loading = false;

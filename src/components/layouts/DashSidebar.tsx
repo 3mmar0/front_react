@@ -6,7 +6,7 @@ import {
   AiOutlineMenuFold,
   AiOutlineMenuUnfold,
 } from "react-icons/ai";
-import { BiSolidGridAlt, BiSolidStore } from "react-icons/bi";
+import { BiImages, BiSolidGridAlt, BiSolidStore } from "react-icons/bi";
 import NavItem from "./NavItem";
 import { FaShapes } from "react-icons/fa";
 
@@ -32,6 +32,11 @@ const data = [
     ttl: "stores",
     link: "/dashboard/stores",
     icon: <BiSolidStore />,
+  },
+  {
+    ttl: "carusels",
+    link: "/dashboard/carusels",
+    icon: <BiImages />,
   },
 ];
 

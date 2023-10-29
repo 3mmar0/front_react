@@ -39,7 +39,7 @@ export const reduxSnipitGet = ({ name, url }: { name: string; url: string }) =>
     } catch (_err) {
       const error: AxiosError = _err as AxiosError; // cast the error for access
       if (!error.response) {
-        throw _err;
+        return rejectWithValue({ errors: "Error: Network Error" });
       }
       // We got validation errors, let's return those so we can reference in our component and set form errors
       return rejectWithValue(error.response.data);
@@ -62,7 +62,7 @@ export const reduxSnipitSingle = ({
     } catch (_err) {
       const error: AxiosError = _err as AxiosError; // cast the error for access
       if (!error.response) {
-        throw _err;
+        return rejectWithValue({ errors: "Error: Network Error" });
       }
       // We got validation errors, let's return those so we can reference in our component and set form errors
       return rejectWithValue(error.response.data);
@@ -85,7 +85,7 @@ export const reduxSnipitDelete = ({
     } catch (_err) {
       const error: AxiosError = _err as AxiosError; // cast the error for access
       if (!error.response) {
-        throw _err;
+        return rejectWithValue({ errors: "Error: Network Error" });
       }
       // We got validation errors, let's return those so we can reference in our component and set form errors
       return rejectWithValue(error.response.data);
@@ -114,7 +114,7 @@ export const reduxSnipitUpdate = ({
       } catch (_err) {
         const error: AxiosError = _err as AxiosError; // cast the error for access
         if (!error.response) {
-          throw _err;
+          return rejectWithValue({ errors: "Error: Network Error" });
         }
         // We got validation errors, let's return those so we can reference in our component and set form errors
         return rejectWithValue(error.response.data);
@@ -138,7 +138,7 @@ export const reduxSnipitCreate = ({
     } catch (_err) {
       const error: AxiosError = _err as AxiosError; // cast the error for access
       if (!error.response) {
-        throw _err;
+        return rejectWithValue({ errors: "Error: Network Error" });
       }
       // We got validation errors, let's return those so we can reference in our component and set form errors
       return rejectWithValue(error.response.data);

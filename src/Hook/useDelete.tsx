@@ -10,7 +10,7 @@ const useDelete = ({
   recalFun,
 }: {
   states: string;
-  delFun: (id: number | undefined) => AnyAction;
+  delFun: (id: string | undefined) => AnyAction;
   clearFun: () => AnyAction;
   recalFun: () => AnyAction;
 }) => {
@@ -19,7 +19,7 @@ const useDelete = ({
   );
   const dispatch = useAppDispatch();
 
-  const handleDelete = (id: number | undefined) => {
+  const handleDelete = (id: string | undefined) => {
     dispatch(delFun(id));
   };
 
