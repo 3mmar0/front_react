@@ -3,7 +3,7 @@ import useGet from "@/Hook/useGet";
 import DashboardContainer from "@/components/DashboardContainer";
 import Loader from "@/components/Loader";
 import Pagination from "@/components/ui/Pagination";
-import { CategoryType, ProductType } from "@/lib/types";
+import { ProductType } from "@/lib/types";
 import {
   clearErrors,
   deleteProduct,

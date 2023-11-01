@@ -4,12 +4,11 @@ import DashboardContainer from "@/components/DashboardContainer";
 import Loader from "@/components/Loader";
 import Pagination from "@/components/ui/Pagination";
 import { CategoryType } from "@/lib/types";
-import { carusels, deleteCarusel } from "@/slices/carusel/caruselAction";
 import {
-  categories,
   clearErrors,
-  deleteCategory,
-} from "@/slices/categories/categoryAction";
+  carusels,
+  deleteCarusel,
+} from "@/slices/carusel/caruselAction";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { Link } from "react-router-dom";
@@ -64,7 +63,7 @@ const Carusels = () => {
                   </td>
                   <td>
                     <div className="flex items-center justify-center gap-2 text-xl">
-                      <Link to={`/dashboard/categories/update/${e.id}`}>
+                      <Link to={`/dashboard/carusels/update/${e.id}`}>
                         <BiEditAlt className="active:scale-95 cursor-pointer text-green-700" />
                       </Link>
                       <AiOutlineDelete

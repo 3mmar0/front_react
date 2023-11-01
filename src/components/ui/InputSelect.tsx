@@ -7,8 +7,8 @@ interface InputSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   emptyOption?: string;
   options?: {
-    name: string;
-    val: string;
+    name?: string;
+    val?: string | number;
   }[];
   error?: string;
 }

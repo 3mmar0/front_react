@@ -9,31 +9,28 @@ const useUpdate = ({
   clearFun,
 }: {
   states: string;
-  updateFun: (data?: FormData) => AnyAction;
-  clearFun: () => AnyAction;
+  updateFun: (data?: FormData | { dat: FormData; id?: string }) => AnyAction;
+  clearFun(): AnyAction;
 }) => {
   const { loading, msg, errors, success } = useAppSelector(
     (state) => state[`${states}`]
   );
   const dispatch = useAppDispatch();
 
-  const handleUpdate = (data: FormData) => {
+  const handleUpdate = (data: FormData | { dat: FormData; id?: string }) => {
     dispatch(updateFun(data));
   };
 
   useEffect(() => {
     if (success === false && msg) {
       toast.error(msg);
-      dispatch(clearFun);
+      dispatch(clearFun());
     }
     if (success && msg) {
       toast.success(msg);
-      dispatch(clearFun);
+      dispatch(clearFun());
     }
-    if (success === false && typeof errors == typeof String) {
-      toast.error(errors);
-    }
-  }, [success, msg, errors, dispatch]);
+  }, [success, msg, dispatch]);
 
   return {
     handleUpdate,

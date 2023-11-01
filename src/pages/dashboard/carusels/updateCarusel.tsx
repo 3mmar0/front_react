@@ -8,16 +8,16 @@ import { uploadImg } from "@/lib/utils";
 import FormModel from "@/models/form-model";
 import {
   clearErrors,
-  singleCategory,
-  updateCategory,
-} from "@/slices/categories/categoryAction";
+  singleCarusel,
+  updateCarusel,
+} from "@/slices/carusel/caruselAction";
 import { FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const links = [
   {
-    name: "categories",
-    link: "categories",
+    name: "carusels",
+    link: "carusels",
   },
   {
     name: "update",
@@ -27,8 +27,8 @@ const links = [
 const UpdateCarusel = () => {
   const params = useParams()?.id;
   const { data, loading } = useSingle({
-    states: "singleCategory",
-    callFun: singleCategory,
+    states: "singleCarusel",
+    callFun: singleCarusel,
   });
 
   const {
@@ -36,8 +36,8 @@ const UpdateCarusel = () => {
     errors,
     handleUpdate,
   } = useUpdate({
-    states: "updateCategory",
-    updateFun: updateCategory,
+    states: "updateCarusel",
+    updateFun: updateCarusel,
     clearFn: clearErrors,
   });
 
@@ -58,27 +58,21 @@ const UpdateCarusel = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    if (Object.keys(errors).length !== 0) {
-      seterrs(errors);
-    }
-  }, [errors]);
-
   if (loading || updateLD) {
     return <Loader />;
   }
   return (
-    <DashboardContainer className="" ttl="Categories" links={links}>
+    <DashboardContainer className="" ttl="Carusels" links={links}>
       <FormModel
         className="mx-auto"
-        title="Update Category"
+        title="Update Carusel"
         disc=""
         isOauth={false}
         onSubmit={fetchData}
       >
         <InputFile
           name="image"
-          label="Selcet Category img"
+          label="Selcet Carusel img"
           onChange={(e) => setimage(uploadImg(e))}
           error={errs?.image}
         />

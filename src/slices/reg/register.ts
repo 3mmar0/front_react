@@ -35,7 +35,7 @@ const LoginAuthSlice = createSlice({
       state.msg = action.payload.msg;
       state.data = action.payload.data;
       if ((state?.data as UserData).email) {
-        cookies.set("user", JSON.stringify(state.user), {
+        cookies.set("user", JSON.stringify(state.data), {
           path: "/",
           maxAge: 3600 * 24 * 10,
         });

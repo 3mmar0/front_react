@@ -52,7 +52,7 @@ const UpdateProduct = () => {
   const [tags, settags] = useState<string>("");
   const [rating, setrating] = useState<string>("5");
   const [type, settype] = useState<string>("new");
-  const [image, setimage] = useState<object>();
+  const [image, setimage] = useState<{ img?: File; imgApi?: string }>();
   const [status, setstatus] = useState("");
   const [errs, seterrs] = useState<ProductType>();
 

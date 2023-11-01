@@ -5,7 +5,7 @@ import FormInput from "@/components/form/FormInput";
 import { Button } from "@/components/ui/Button";
 import InputFile from "@/components/ui/InputFile";
 import InputSelect from "@/components/ui/InputSelect";
-import { ProductType } from "@/lib/types";
+import { CategoryType, ProductType, StoreType } from "@/lib/types";
 import { uploadImg } from "@/lib/utils";
 import FormModel from "@/models/form-model";
 import { clearErrors, createProduct } from "@/slices/products/productAction";
@@ -42,7 +42,7 @@ const CreateProduct = () => {
   const [tags, settags] = useState<string>("");
   const [rating, setrating] = useState<string>("5");
   const [type, settype] = useState<string>("new");
-  const [image, setimage] = useState<object>();
+  const [image, setimage] = useState<{ img: File }>();
   const [errs, seterrs] = useState<ProductType>();
 
   const fetchData = async (e: FormEvent) => {
@@ -88,6 +88,14 @@ const CreateProduct = () => {
           error={errs?.name}
         />
         <FormInput
+          value={tags}
+          onChange={(e) => settags(e.target.value)}
+          label="tags"
+          name="tags"
+          placeholder="Product tags"
+          error={errs?.tags}
+        />
+        <FormInput
           value={disc}
           onChange={(e) => setdisc(e.target.value)}
           label="disc"
@@ -118,7 +126,7 @@ const CreateProduct = () => {
           name="category_id"
           onChange={(e) => setcategory_id(e.target.value)}
           error={errs?.category_id}
-          options={cats?.data?.map((e) => {
+          options={(cats?.data as CategoryType[])?.map((e) => {
             return { val: e?.id, name: e?.name };
           })}
         />
@@ -127,9 +135,22 @@ const CreateProduct = () => {
           name="store_id"
           onChange={(e) => setstore_id(e.target.value)}
           error={errs?.store_id}
-          options={stores?.data?.map((e) => {
+          options={(stores?.data as StoreType[])?.map((e) => {
             return { val: e?.id, name: e?.name };
           })}
+        />
+        <InputSelect
+          label="Rating"
+          name="rating"
+          options={[
+            { name: "5", val: "5" },
+            { name: "4", val: "4" },
+            { name: "3", val: "3" },
+            { name: "2", val: "2" },
+            { name: "1", val: "1" },
+          ]}
+          value={rating}
+          onChange={(e) => setrating(e.target.value)}
         />
         <InputFile
           name="image"
