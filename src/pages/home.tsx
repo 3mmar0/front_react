@@ -67,11 +67,11 @@ const Home: FC<homeProps> = () => {
         ))}
       </div>
       {/* Carusels */}
-      <section className="mb-4 h-fit max-h-[500px]">
+      <section className="p-4 mb-4 h-fit max-h-[500px]">
         <div className="relative flex h-full w-full max-h-[500px]">
           <div className="w-full h-full max-h-[500px] flex-1">
-            {(data as HomeType)?.carusels?.map((e) => {
-              return e?.id === currentImg ? (
+            {(data as HomeType)?.carusels?.map((e, i) => {
+              return i + 1 === currentImg ? (
                 <img
                   key={e?.id}
                   className="object-contain w-full h-full max-h-[500px]"
@@ -108,6 +108,7 @@ const Home: FC<homeProps> = () => {
           </div>
         </div>
       </section>
+      {/* Services */}
       <section className="p-4">
         <h2 className="sec_ttl mb-16 cursor-pointer w-fit text-2xl font-semibold text-slate-900">
           Our Service
@@ -126,17 +127,30 @@ const Home: FC<homeProps> = () => {
           </div>
         </div>
       </section>
+      {/* New Products */}
       <section className="p-4">
         <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-2xl font-semibold text-slate-900">
-          Best Categories
+          New Products
         </h2>
-        <div className="h-[100px] w-full flex flex-nowrap gap-3 overflow-auto p-3">
+        <div className="w-full grid grid-cols-product justify-center gap-3 overflow-auto p-3">
           {data &&
-            (data as HomeType)?.categories?.map((e, i) => (
+            (data as HomeType)?.newProd?.map((e, i) => (
               <div
                 key={i}
-                className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"
-              ></div>
+                className="rounded-md w-full p-2 border border-slate-300"
+              >
+                <div>
+                  <img
+                    className="w-[200px] h-[200px] m-auto object-contain"
+                    src={e?.image}
+                    alt="product - img"
+                  />
+                </div>
+                <h2 className="text-xl text-slate-900 font-semibold my-1">
+                  {e?.name}
+                </h2>
+                <p className="text-2 text-slate-500">{e?.disc}</p>
+              </div>
             ))}
         </div>
       </section>

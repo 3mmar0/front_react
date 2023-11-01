@@ -59,7 +59,7 @@ const Carusels = () => {
                 <tr key={e?.id}>
                   <td>{e.id}</td>
                   <td>
-                    <img src={e.image} alt="carusel" />
+                    <img src={e.image} className="h-[100px]" alt="carusel" />
                   </td>
                   <td>
                     <div className="flex items-center justify-center gap-2 text-xl">

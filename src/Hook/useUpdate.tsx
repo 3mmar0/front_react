@@ -24,11 +24,11 @@ const useUpdate = ({
   useEffect(() => {
     if (success === false && msg) {
       toast.error(msg);
-      dispatch(clearFun());
+      dispatch(clearFun);
     }
     if (success && msg) {
       toast.success(msg);
-      dispatch(clearFun());
+      dispatch(clearFun);
     }
   }, [success, msg, dispatch]);
 

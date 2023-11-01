@@ -27,7 +27,7 @@ const links = [
 ];
 
 const CreateCategory = () => {
-  const { data } = useAppSelector((state) => state.categories);
+  const { data } = useAppSelector((state) => state.GlobalCats);
   const { loading, handleCreate, errors } = useCreate({
     states: "createCategory",
     createFun: createCategory,
@@ -37,7 +37,7 @@ const CreateCategory = () => {
   const [name, setname] = useState<string>("");
   const [disc, setdisc] = useState<string>("");
   const [parent_id, setparent_id] = useState<string>("");
-  const [image, setimage] = useState<object>();
+  const [image, setimage] = useState<{ img?: File }>();
   const [errs, seterrs] = useState<CategoryType>();
 
   const fetchData = async (e: FormEvent) => {
@@ -88,8 +88,12 @@ const CreateCategory = () => {
           label="Parent category"
           name="parent_id"
           onChange={(e) => setparent_id(e.target.value)}
+          value={parent_id}
           error={errs?.parent_id}
-          options={[]}
+          emptyOption="Main Category"
+          options={(data as CategoryType[])?.map((e: CategoryType) => {
+            return { val: e?.id, name: e?.name };
+          })}
         />
         <InputFile
           name="image"
