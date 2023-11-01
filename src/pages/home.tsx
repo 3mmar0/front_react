@@ -1,12 +1,14 @@
 import Loader from "@/components/Loader";
 import MetaDate from "@/lib/metaDate";
-import { CaruselType, HomeType } from "@/lib/types";
+import { HomeType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { FC, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { LuChevronDown } from "react-icons/lu";
+import notFound from "@assets/notFound.png";
+import ProductCard from "@/components/products/ProductCard";
 
 interface homeProps {}
 
@@ -14,7 +16,7 @@ const Home: FC<homeProps> = () => {
   const dispatch = useAppDispatch();
   const { loading, data, errors } = useAppSelector((state) => state.home);
 
-  const [currentImg, setcurrentImg] = useState(1);
+  const [currentImg, setcurrentImg] = useState<number>(1);
 
   const handleNext = () => {
     console.log((data as HomeType)?.carusels?.length);
@@ -29,7 +31,7 @@ const Home: FC<homeProps> = () => {
     if (currentImg > 1) {
       setcurrentImg(currentImg - 1);
     } else {
-      setcurrentImg((data as HomeType)?.carusels?.length);
+      setcurrentImg(() => (data as HomeType).carusels.length);
     }
   };
 
@@ -75,7 +77,7 @@ const Home: FC<homeProps> = () => {
                 <img
                   key={e?.id}
                   className="object-contain w-full h-full max-h-[500px]"
-                  src={e?.image}
+                  src={e?.image ? e?.image : notFound}
                   alt=""
                 />
               ) : (
@@ -135,22 +137,43 @@ const Home: FC<homeProps> = () => {
         <div className="w-full grid grid-cols-product justify-center gap-3 overflow-auto p-3">
           {data &&
             (data as HomeType)?.newProd?.map((e, i) => (
-              <div
-                key={i}
-                className="rounded-md w-full p-2 border border-slate-300"
-              >
-                <div>
-                  <img
-                    className="w-[200px] h-[200px] m-auto object-contain"
-                    src={e?.image}
-                    alt="product - img"
-                  />
-                </div>
-                <h2 className="text-xl text-slate-900 font-semibold my-1">
-                  {e?.name}
-                </h2>
-                <p className="text-2 text-slate-500">{e?.disc}</p>
-              </div>
+              <ProductCard key={i} product={e} />
+            ))}
+        </div>
+      </section>
+      {/* Hot Products */}
+      <section className="p-4">
+        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-2xl font-semibold text-slate-900">
+          Hot Products
+        </h2>
+        <div className="w-full grid grid-cols-product justify-center gap-3 overflow-auto p-3">
+          {data &&
+            (data as HomeType)?.hotProd?.map((e, i) => (
+              <ProductCard key={i} product={e} />
+            ))}
+        </div>
+      </section>
+      {/* Top rated Products */}
+      <section className="p-4">
+        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-2xl font-semibold text-slate-900">
+          Top rated Products
+        </h2>
+        <div className="w-full grid grid-cols-product justify-center gap-3 overflow-auto p-3">
+          {data &&
+            (data as HomeType)?.topProd?.map((e, i) => (
+              <ProductCard key={i} product={e} />
+            ))}
+        </div>
+      </section>
+      {/* Best Selling Products */}
+      <section className="p-4">
+        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-2xl font-semibold text-slate-900">
+          Best Selling Products
+        </h2>
+        <div className="w-full grid grid-cols-product justify-center gap-3 overflow-auto p-3">
+          {data &&
+            (data as HomeType)?.bestSellingProd?.map((e, i) => (
+              <ProductCard key={i} product={e} />
             ))}
         </div>
       </section>
