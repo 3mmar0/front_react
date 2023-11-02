@@ -28,6 +28,7 @@ import createCarusel from "@/slices/carusel/createCarusel";
 import updateCarusel from "@/slices/carusel/updateCarusel";
 import deleteCarusel from "@/slices/carusel/deleteCarusel";
 import home from "@/slices/home/home";
+import userProducts from "@/slices/home/userProducts";
 
 export const store = configureStore({
   reducer: {
@@ -36,6 +37,7 @@ export const store = configureStore({
     GlobalStores: globalStores,
     // Home
     home: home,
+    userProducts: userProducts,
     // Auth
     profile: profile,
     updateProfile,

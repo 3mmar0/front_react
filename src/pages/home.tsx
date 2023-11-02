@@ -21,7 +21,7 @@ const Home: FC<homeProps> = () => {
   const handleNext = () => {
     console.log((data as HomeType)?.carusels?.length);
 
-    if ((data as HomeType)?.carusels?.length === currentImg) {
+    if ((data as HomeType)?.carusels?.slice(0, 3)?.length === currentImg) {
       setcurrentImg(1);
     } else {
       setcurrentImg(currentImg + 1);
@@ -31,7 +31,7 @@ const Home: FC<homeProps> = () => {
     if (currentImg > 1) {
       setcurrentImg(currentImg - 1);
     } else {
-      setcurrentImg(() => (data as HomeType).carusels.length);
+      setcurrentImg((data as HomeType)?.carusels?.slice(0, 3)?.length);
     }
   };
 
@@ -49,17 +49,17 @@ const Home: FC<homeProps> = () => {
     <div className="flex-1">
       <MetaDate ttl="Home - page" />
       {/* Categories - header */}
-      <div className="h-[45px] px-4 flex items-center border-b border-slate-300">
+      <div className="min-h-[45px] px-4 flex items-center flex-nowrap overflow-x-auto border-b border-slate-300">
         <li
           key={0}
-          className="px-3 border-x border-slate-300 h-full flex items-center justify-center"
+          className="px-3 h-[45px] whitespace-nowrap border-x border-slate-300  flex items-center justify-center"
         >
           All Categories
         </li>
         {(data as HomeType)?.categories?.map((e) => (
           <li
             key={e?.name}
-            className="h-full flex items-center gap-1 font-semibold px-2 border-r border-slate-300"
+            className="h-[45px] whitespace-nowrap flex items-center gap-1 font-semibold px-2 border-r border-slate-300"
           >
             {e?.name}{" "}
             <p className=" mt-1">
@@ -72,7 +72,7 @@ const Home: FC<homeProps> = () => {
       <section className="p-4 mb-4 h-fit max-h-[500px]">
         <div className="relative flex h-full w-full max-h-[500px]">
           <div className="w-full h-full max-h-[500px] flex-1">
-            {(data as HomeType)?.carusels?.map((e, i) => {
+            {(data as HomeType)?.carusels?.slice(0, 3)?.map((e, i) => {
               return i + 1 === currentImg ? (
                 <img
                   key={e?.id}
@@ -98,7 +98,7 @@ const Home: FC<homeProps> = () => {
             <FaArrowRight className="text-2xl text-slate-50" />
           </button>
           <div className="absolute w-fit bottom-3 left-1/2 right-1/2 -translate-x-1/2 flex gap-2 items-center">
-            {(data as HomeType)?.carusels?.map((e, i) => (
+            {(data as HomeType)?.carusels?.slice(0, 3)?.map((e, i) => (
               <span
                 key={e?.id}
                 className={cn(
@@ -110,9 +110,9 @@ const Home: FC<homeProps> = () => {
           </div>
         </div>
       </section>
-      {/* Services */}
+      {/* Services
       <section className="p-4">
-        <h2 className="sec_ttl mb-16 cursor-pointer w-fit text-2xl font-semibold text-slate-900">
+        <h2 className="sec_ttl mb-16 cursor-pointer w-fit text-4xl font-semibold text-slate-900">
           Our Service
         </h2>
         <div className="w-full rounded-md p-4 h-[200px] min-h-[200px] bg-gradient-to-t from-slate-100 to-main">
@@ -128,25 +128,35 @@ const Home: FC<homeProps> = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* New Products */}
       <section className="p-4">
-        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-2xl font-semibold text-slate-900">
+        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-4xl font-semibold text-slate-900">
           New Products
         </h2>
-        <div className="w-full grid grid-cols-product justify-center gap-3 overflow-auto p-3">
+        <div className="w-full grid grid-cols-product justify-center gap-5 overflow-auto py-3 px-6">
           {data &&
             (data as HomeType)?.newProd?.map((e, i) => (
               <ProductCard key={i} product={e} />
             ))}
         </div>
       </section>
+      {/* AD */}
+      {(data as HomeType)?.carusels?.length > 3 && (
+        <div className="p-4">
+          <img
+            className="rounded-xl mx-auto max-w-[1000px] w-full"
+            src={(data as HomeType)?.carusels[3]?.image}
+            alt=""
+          />
+        </div>
+      )}
       {/* Hot Products */}
       <section className="p-4">
-        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-2xl font-semibold text-slate-900">
+        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-4xl font-semibold text-slate-900">
           Hot Products
         </h2>
-        <div className="w-full grid grid-cols-product justify-center gap-3 overflow-auto p-3">
+        <div className="w-full grid grid-cols-product justify-center gap-5 overflow-auto py-3 px-6">
           {data &&
             (data as HomeType)?.hotProd?.map((e, i) => (
               <ProductCard key={i} product={e} />
@@ -155,10 +165,10 @@ const Home: FC<homeProps> = () => {
       </section>
       {/* Top rated Products */}
       <section className="p-4">
-        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-2xl font-semibold text-slate-900">
+        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-4xl font-semibold text-slate-900">
           Top rated Products
         </h2>
-        <div className="w-full grid grid-cols-product justify-center gap-3 overflow-auto p-3">
+        <div className="w-full grid grid-cols-product justify-center gap-5 overflow-auto py-3 px-6">
           {data &&
             (data as HomeType)?.topProd?.map((e, i) => (
               <ProductCard key={i} product={e} />
@@ -167,10 +177,10 @@ const Home: FC<homeProps> = () => {
       </section>
       {/* Best Selling Products */}
       <section className="p-4">
-        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-2xl font-semibold text-slate-900">
+        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-4xl font-semibold text-slate-900">
           Best Selling Products
         </h2>
-        <div className="w-full grid grid-cols-product justify-center gap-3 overflow-auto p-3">
+        <div className="w-full grid grid-cols-product justify-center gap-5 overflow-auto py-3 px-6">
           {data &&
             (data as HomeType)?.bestSellingProd?.map((e, i) => (
               <ProductCard key={i} product={e} />

@@ -4,6 +4,7 @@ import Root from "@/pages/root";
 import Login from "@pages/login";
 import ErrorPage from "./ErrorPage";
 import Home from "@pages/home";
+import ProductsPage from "@pages/products";
 import Register from "@pages/register";
 import GuestUser from "@/middlewares/GuestUser";
 import Dash from "@pages/dashboard/dash";
@@ -76,6 +77,11 @@ const router = createBrowserRouter([
             <Profile />
           </AuthUser>
         ),
+      },
+      // Products
+      {
+        path: "/products",
+        element: <ProductsPage />,
       },
       ////////////////// Dashboard //////////////////
       {
