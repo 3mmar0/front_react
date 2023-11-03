@@ -4,6 +4,7 @@ import notFound from "@assets/notFound.png";
 import { BiSolidStar } from "react-icons/bi";
 import { CiShoppingBasket } from "react-icons/ci";
 import { adminImgUrl } from "@/lib/utils";
+import { FaPercentage } from "react-icons/fa";
 
 interface ProductCardProps {
   product: ProductType;
@@ -35,11 +36,24 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
           {product?.rating}
           <BiSolidStar className="text-yellow-500" />
         </span>
-        <span className="text-xl font-semibold">{product?.price}$</span>
+        <p className="text-xl font-semibold flex items-center gap-1">
+          {product?.compare_price && (
+            <span className="line-through text-base text-red-700">
+              {product?.compare_price}$
+            </span>
+          )}
+          {product?.price}$
+        </p>
       </div>
       <div className="absolute cursor-pointer top-0 right-0 w-11 h-11 bg-cyan-900 text-white text-3xl flex items-center justify-center rounded-bl-md active:scale-95">
         <CiShoppingBasket />
       </div>
+      {product?.compare_price && (
+        <div className="absolute cursor-pointer top-0 left-0 text-sm px-2 h-7 bg-red-900 text-white flex items-center justify-center gap-1">
+          <FaPercentage />
+          {(100 - (product?.compare_price / product?.price) * 100).toFixed(1)}
+        </div>
+      )}
     </div>
   );
 };
