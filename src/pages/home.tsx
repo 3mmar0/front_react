@@ -1,6 +1,6 @@
 import Loader from "@/components/Loader";
 import MetaDate from "@/lib/metaDate";
-import { CaruselType, HomeType } from "@/lib/types";
+import { CaruselType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { FC, useEffect, useState } from "react";
@@ -17,9 +17,9 @@ const Home: FC<homeProps> = () => {
   const [currentImg, setcurrentImg] = useState(1);
 
   const handleNext = () => {
-    console.log((data as HomeType)?.carusels?.length);
+    console.log(data?.carusels?.length);
 
-    if ((data as HomeType)?.carusels?.length === currentImg) {
+    if (data?.carusels?.length === currentImg) {
       setcurrentImg(1);
     } else {
       setcurrentImg(currentImg + 1);
@@ -29,7 +29,7 @@ const Home: FC<homeProps> = () => {
     if (currentImg > 1) {
       setcurrentImg(currentImg - 1);
     } else {
-      setcurrentImg((data as HomeType)?.carusels?.length);
+      setcurrentImg(data?.carusels?.length);
     }
   };
 
@@ -54,7 +54,7 @@ const Home: FC<homeProps> = () => {
         >
           All Categories
         </li>
-        {(data as HomeType)?.categories?.map((e) => (
+        {data?.categories?.map((e) => (
           <li
             key={e?.name}
             className="h-full flex items-center gap-1 font-semibold px-2 border-r border-slate-300"
@@ -67,14 +67,14 @@ const Home: FC<homeProps> = () => {
         ))}
       </div>
       {/* Carusels */}
-      <section className="mb-4 h-fit max-h-[500px]">
-        <div className="relative flex h-full w-full max-h-[500px]">
-          <div className="w-full h-full max-h-[500px] flex-1">
-            {(data as HomeType)?.carusels?.map((e) => {
-              return e?.id === currentImg ? (
+      <section className="mb-4 h-[500px] max-h-[500px]">
+        <div className="relative flex h-[500px] w-full max-h-[500px]">
+          <div className="w-full h-[500px] max-h-[500px] flex-1">
+            {data?.carusels?.map((e, i) => {
+              return i+1 === currentImg ? (
                 <img
                   key={e?.id}
-                  className="object-contain w-full h-full max-h-[500px]"
+                  className="object-contain w-full  h-[500px] max-h-[500px]"
                   src={e?.image}
                   alt=""
                 />
@@ -96,7 +96,7 @@ const Home: FC<homeProps> = () => {
             <FaArrowRight className="text-2xl text-slate-50" />
           </button>
           <div className="absolute w-fit bottom-3 left-1/2 right-1/2 -translate-x-1/2 flex gap-2 items-center">
-            {(data as HomeType)?.carusels?.map((e, i) => (
+            {data?.carusels?.map((e, i) => (
               <span
                 key={e?.id}
                 className={cn(
@@ -108,6 +108,7 @@ const Home: FC<homeProps> = () => {
           </div>
         </div>
       </section>
+      
       <section className="p-4">
         <h2 className="sec_ttl mb-16 cursor-pointer w-fit text-2xl font-semibold text-slate-900">
           Our Service
@@ -132,7 +133,7 @@ const Home: FC<homeProps> = () => {
         </h2>
         <div className="h-[100px] w-full flex flex-nowrap gap-3 overflow-auto p-3">
           {data &&
-            (data as HomeType)?.categories?.map((e, i) => (
+            data?.categories?.map((e, i) => (
               <div
                 key={i}
                 className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"
