@@ -35,12 +35,18 @@ const Header = () => {
               />
             </div>
           </div>
-          <div className="flex items-center justify-center border border-slate-300 rounded-full w-[35px] h-[35px] cursor-pointer active:scale-95">
+          <Link
+            to={"/"}
+            className="flex items-center justify-center border border-slate-300 rounded-full w-[35px] h-[35px] cursor-pointer active:scale-95"
+          >
             <BiHomeAlt2 className="text-slate-700 text-xl" />
-          </div>
-          <div className="flex items-center justify-center border border-slate-300 rounded-full w-[35px] h-[35px] cursor-pointer active:scale-95">
+          </Link>
+          <Link
+            to={"/products"}
+            className="flex items-center justify-center border border-slate-300 rounded-full w-[35px] h-[35px] cursor-pointer active:scale-95"
+          >
             <CiGrid42 className="text-slate-700 text-xl" />
-          </div>
+          </Link>
         </nav>
         <p className="h-[80%] block w-[1.5px] bg-slate-400 mx-3" />
         <div className="flex items-center gap-2">

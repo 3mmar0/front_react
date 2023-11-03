@@ -38,7 +38,7 @@ const UpdateCarusel = () => {
   } = useUpdate({
     states: "updateCarusel",
     updateFun: updateCarusel,
-    clearFn: clearErrors,
+    clearFun: clearErrors(),
   });
 
   const [image, setimage] = useState<{ img?: File; imgApi?: string | null }>();
@@ -77,18 +77,18 @@ const UpdateCarusel = () => {
           error={errs?.image}
         />
         {image?.imgApi ? (
-          <div className="p-2">
+          <div className="">
             <img
-              src={`http://localhost:8000/storage/${image?.imgApi}`}
-              className="h-24 w-24 object-contain"
+              src={`${image?.imgApi}`}
+              className="h-52 w-full object-contain"
               alt=""
             />
           </div>
         ) : (
-          <div className="p-2">
+          <div className="">
             <img
               src={image?.img && URL?.createObjectURL(image?.img)}
-              className="h-24 w-24 object-contain"
+              className="h-52 w-full object-contain"
               alt="img"
             />
           </div>

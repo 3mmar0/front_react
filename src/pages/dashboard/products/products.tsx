@@ -4,6 +4,7 @@ import DashboardContainer from "@/components/DashboardContainer";
 import Loader from "@/components/Loader";
 import Pagination from "@/components/ui/Pagination";
 import { ProductType } from "@/lib/types";
+import { adminImgUrl } from "@/lib/utils";
 import {
   clearErrors,
   deleteProduct,
@@ -47,6 +48,7 @@ const Products = () => {
           <thead>
             <tr>
               <th>#id</th>
+              <th>Image</th>
               <th>name</th>
               <th>disc</th>
               <th>price</th>
@@ -64,6 +66,14 @@ const Products = () => {
               data?.data?.map((e: ProductType) => (
                 <tr key={e?.id}>
                   <td>{e.id}</td>
+                  <td>
+                    <img
+                      src={adminImgUrl({ img: e.image })}
+                      className="w-10 h-10"
+                      loading="lazy"
+                      alt=""
+                    />
+                  </td>
                   <td>{e.name}</td>
                   <td>{e.disc}</td>
                   <td>{e.price}</td>

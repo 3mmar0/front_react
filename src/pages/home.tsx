@@ -1,12 +1,18 @@
 import Loader from "@/components/Loader";
 import MetaDate from "@/lib/metaDate";
+<<<<<<< HEAD
 import { CaruselType } from "@/lib/types";
+=======
+import { HomeType } from "@/lib/types";
+>>>>>>> 981713949f819f7049981d91b66292a5e9adbebe
 import { cn } from "@/lib/utils";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { FC, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { LuChevronDown } from "react-icons/lu";
+import notFound from "@assets/notFound.png";
+import ProductCard from "@/components/products/ProductCard";
 
 interface homeProps {}
 
@@ -14,12 +20,16 @@ const Home: FC<homeProps> = () => {
   const dispatch = useAppDispatch();
   const { loading, data, errors } = useAppSelector((state) => state.home);
 
-  const [currentImg, setcurrentImg] = useState(1);
+  const [currentImg, setcurrentImg] = useState<number>(1);
 
   const handleNext = () => {
     console.log(data?.carusels?.length);
 
+<<<<<<< HEAD
     if (data?.carusels?.length === currentImg) {
+=======
+    if ((data as HomeType)?.carusels?.slice(0, 3)?.length === currentImg) {
+>>>>>>> 981713949f819f7049981d91b66292a5e9adbebe
       setcurrentImg(1);
     } else {
       setcurrentImg(currentImg + 1);
@@ -29,7 +39,11 @@ const Home: FC<homeProps> = () => {
     if (currentImg > 1) {
       setcurrentImg(currentImg - 1);
     } else {
+<<<<<<< HEAD
       setcurrentImg(data?.carusels?.length);
+=======
+      setcurrentImg((data as HomeType)?.carusels?.slice(0, 3)?.length);
+>>>>>>> 981713949f819f7049981d91b66292a5e9adbebe
     }
   };
 
@@ -47,17 +61,17 @@ const Home: FC<homeProps> = () => {
     <div className="flex-1">
       <MetaDate ttl="Home - page" />
       {/* Categories - header */}
-      <div className="h-[45px] px-4 flex items-center border-b border-slate-300">
+      <div className="min-h-[45px] px-4 flex items-center flex-nowrap overflow-x-auto border-b border-slate-300">
         <li
           key={0}
-          className="px-3 border-x border-slate-300 h-full flex items-center justify-center"
+          className="px-3 h-[45px] whitespace-nowrap border-x border-slate-300  flex items-center justify-center"
         >
           All Categories
         </li>
         {data?.categories?.map((e) => (
           <li
             key={e?.name}
-            className="h-full flex items-center gap-1 font-semibold px-2 border-r border-slate-300"
+            className="h-[45px] whitespace-nowrap flex items-center gap-1 font-semibold px-2 border-r border-slate-300"
           >
             {e?.name}{" "}
             <p className=" mt-1">
@@ -67,6 +81,7 @@ const Home: FC<homeProps> = () => {
         ))}
       </div>
       {/* Carusels */}
+<<<<<<< HEAD
       <section className="mb-4 h-[500px] max-h-[500px]">
         <div className="relative flex h-[500px] w-full max-h-[500px]">
           <div className="w-full h-[500px] max-h-[500px] flex-1">
@@ -76,6 +91,17 @@ const Home: FC<homeProps> = () => {
                   key={e?.id}
                   className="object-contain w-full  h-[500px] max-h-[500px]"
                   src={e?.image}
+=======
+      <section className="p-4 mb-4 h-fit max-h-[500px]">
+        <div className="relative flex h-full w-full max-h-[500px]">
+          <div className="w-full h-full max-h-[500px] flex-1">
+            {(data as HomeType)?.carusels?.slice(0, 3)?.map((e, i) => {
+              return i + 1 === currentImg ? (
+                <img
+                  key={e?.id}
+                  className="object-contain w-full h-full max-h-[500px]"
+                  src={e?.image ? e?.image : notFound}
+>>>>>>> 981713949f819f7049981d91b66292a5e9adbebe
                   alt=""
                 />
               ) : (
@@ -96,7 +122,11 @@ const Home: FC<homeProps> = () => {
             <FaArrowRight className="text-2xl text-slate-50" />
           </button>
           <div className="absolute w-fit bottom-3 left-1/2 right-1/2 -translate-x-1/2 flex gap-2 items-center">
+<<<<<<< HEAD
             {data?.carusels?.map((e, i) => (
+=======
+            {(data as HomeType)?.carusels?.slice(0, 3)?.map((e, i) => (
+>>>>>>> 981713949f819f7049981d91b66292a5e9adbebe
               <span
                 key={e?.id}
                 className={cn(
@@ -108,9 +138,13 @@ const Home: FC<homeProps> = () => {
           </div>
         </div>
       </section>
+<<<<<<< HEAD
       
+=======
+      {/* Services
+>>>>>>> 981713949f819f7049981d91b66292a5e9adbebe
       <section className="p-4">
-        <h2 className="sec_ttl mb-16 cursor-pointer w-fit text-2xl font-semibold text-slate-900">
+        <h2 className="sec_ttl mb-16 cursor-pointer w-fit text-4xl font-semibold text-slate-900">
           Our Service
         </h2>
         <div className="w-full rounded-md p-4 h-[200px] min-h-[200px] bg-gradient-to-t from-slate-100 to-main">
@@ -126,18 +160,70 @@ const Home: FC<homeProps> = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+      {/* New Products */}
       <section className="p-4">
-        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-2xl font-semibold text-slate-900">
-          Best Categories
+        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-4xl font-semibold text-slate-900">
+          New Products
         </h2>
-        <div className="h-[100px] w-full flex flex-nowrap gap-3 overflow-auto p-3">
+        <div className="w-full grid grid-cols-product justify-center gap-5 overflow-auto py-3 px-6">
           {data &&
+<<<<<<< HEAD
             data?.categories?.map((e, i) => (
               <div
                 key={i}
                 className="rounded-full bg-main h-[50px] w-[50px] min-w-[50px]"
               ></div>
+=======
+            (data as HomeType)?.newProd?.map((e, i) => (
+              <ProductCard key={i} product={e} />
+            ))}
+        </div>
+      </section>
+      {/* AD */}
+      {(data as HomeType)?.carusels?.length > 3 && (
+        <div className="p-4">
+          <img
+            className="rounded-xl mx-auto max-w-[1000px] w-full"
+            src={(data as HomeType)?.carusels[3]?.image}
+            alt=""
+          />
+        </div>
+      )}
+      {/* Hot Products */}
+      <section className="p-4">
+        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-4xl font-semibold text-slate-900">
+          Hot Products
+        </h2>
+        <div className="w-full grid grid-cols-product justify-center gap-5 overflow-auto py-3 px-6">
+          {data &&
+            (data as HomeType)?.hotProd?.map((e, i) => (
+              <ProductCard key={i} product={e} />
+            ))}
+        </div>
+      </section>
+      {/* Top rated Products */}
+      <section className="p-4">
+        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-4xl font-semibold text-slate-900">
+          Top rated Products
+        </h2>
+        <div className="w-full grid grid-cols-product justify-center gap-5 overflow-auto py-3 px-6">
+          {data &&
+            (data as HomeType)?.topProd?.map((e, i) => (
+              <ProductCard key={i} product={e} />
+            ))}
+        </div>
+      </section>
+      {/* Best Selling Products */}
+      <section className="p-4">
+        <h2 className="sec_ttl mb-4 cursor-pointer w-fit text-4xl font-semibold text-slate-900">
+          Best Selling Products
+        </h2>
+        <div className="w-full grid grid-cols-product justify-center gap-5 overflow-auto py-3 px-6">
+          {data &&
+            (data as HomeType)?.bestSellingProd?.map((e, i) => (
+              <ProductCard key={i} product={e} />
+>>>>>>> 981713949f819f7049981d91b66292a5e9adbebe
             ))}
         </div>
       </section>

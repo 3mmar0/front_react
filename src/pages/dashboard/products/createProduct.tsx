@@ -173,6 +173,8 @@ const CreateProduct = () => {
           options={[
             { name: "hot", val: "hot" },
             { name: "new", val: "new" },
+            { name: "top_rated", val: "top_rated" },
+            { name: "best_selling", val: "best_selling" },
           ]}
           value={type}
           onChange={(e) => settype(e.target.value)}

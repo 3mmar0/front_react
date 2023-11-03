@@ -45,6 +45,8 @@ export interface ProductType {
   id?: string;
   store_id?: string;
   category_id?: string;
+  store?: string;
+  category?: string;
   name?: string;
   slug?: string;
   disc?: string;
