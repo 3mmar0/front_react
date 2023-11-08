@@ -98,3 +98,9 @@ export interface PaginationType {
   next_page_url?: string;
   last_page_url?: string;
 }
+
+export type Filter = {
+  price?: string;
+  category_id?: string;
+  rating?: string;
+};

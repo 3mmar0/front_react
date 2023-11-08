@@ -1,23 +1,33 @@
 import { PaginationType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 interface PaginationProps {
   data: PaginationType;
 }
 
 const Pagination: FC<PaginationProps> = ({ data }) => {
+  const [search, setSearch] = useSearchParams();
+
+  const handlePagination = (e: string | undefined) => {
+    if (e) {
+      search.set("page", e?.split("=")[1]);
+    }
+
+    return `?${search.toString()}`;
+  };
+
   return (
     <div className="flex items-center justify-end">
       <Link
-        to={`${data?.first_page_url?.split("v1")[1]}`}
+        to={handlePagination(data?.first_page_url?.split("?")[1])}
         className="paginate__link"
       >
         {"<<"}
       </Link>
       <Link
-        to={`${data?.prev_page_url?.split("v1")[1]}`}
+        to={handlePagination(data?.prev_page_url?.split("?")[1])}
         className={cn(
           data?.prev_page_url !== null
             ? ""
@@ -33,7 +43,7 @@ const Pagination: FC<PaginationProps> = ({ data }) => {
         ) : (
           <Link
             key={i}
-            to={`${e?.url?.split("v1")[1]}`}
+            to={handlePagination(e?.url?.split("?")[1])}
             className={cn(
               e?.active
                 ? "z-[1] bg-sky-400 text-slate-50 outline-3 outline outline-sky-400 -outline-offset-2"
@@ -46,7 +56,7 @@ const Pagination: FC<PaginationProps> = ({ data }) => {
         );
       })}
       <Link
-        to={`${data?.next_page_url?.split("v1")[1]}`}
+        to={handlePagination(data?.next_page_url?.split("?")[1])}
         className={cn(
           data?.next_page_url !== null
             ? ""
@@ -57,7 +67,7 @@ const Pagination: FC<PaginationProps> = ({ data }) => {
         {"Next"}
       </Link>
       <Link
-        to={`${data?.last_page_url?.split("v1")[1]}`}
+        to={handlePagination(data?.last_page_url?.split("?")[1])}
         className="paginate__link"
       >
         {">>"}

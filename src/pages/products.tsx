@@ -8,9 +8,10 @@ import Input from "@/components/ui/Input";
 import Pagination from "@/components/ui/Pagination";
 import { ProductType } from "@/lib/types";
 import { userProducts } from "@/slices/home/homeAction";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { LuFilter } from "react-icons/lu";
+import { useSearchParams } from "react-router-dom";
 
 interface ProductsProps {}
 
@@ -20,11 +21,15 @@ const links = [
 ];
 
 const Products: FC<ProductsProps> = () => {
+  const [search, setSearch] = useSearchParams();
+  const currentSearch = search.get("name") || "";
+
+  const [name, setname] = useState<string>(currentSearch);
+
   const { loading, data } = useGet({
     states: "userProducts",
     allData: userProducts,
   });
-  console.log(data?.data);
 
   if (loading) {
     return <Loader />;
@@ -44,16 +49,30 @@ const Products: FC<ProductsProps> = () => {
               <LuFilter />
             </Button>
           </div>
-          <div className="mb-2">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setSearch(search.toString());
+            }}
+            className="mb-2"
+          >
             <Input
               type="text"
               className="text-lg w-full"
               placeholder="Search..."
+              value={name}
+              onChange={(e) => {
+                setname(e.target.value);
+                search.set("name", e.target.value);
+              }}
               sufixIcon={
-                <CiSearch className="text-slate-600 text-[31px] cursor-pointer active:scale-90" />
+                <CiSearch
+                  onClick={() => setSearch(search.toString())}
+                  className="text-slate-600 text-[31px] cursor-pointer active:scale-90"
+                />
               }
             />
-          </div>
+          </form>
           <div className="w-full grid grid-cols-product gap-4 p-2">
             {data?.data?.map((e: ProductType) => (
               <ProductCard key={e?.id} product={e} />
