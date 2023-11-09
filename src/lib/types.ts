@@ -50,7 +50,7 @@ export interface ProductType {
   name?: string;
   slug?: string;
   disc?: string;
-  tags?: string;
+  tags?: string | { name: string }[];
   price?: string;
   compare_price?: string;
   options?: string;

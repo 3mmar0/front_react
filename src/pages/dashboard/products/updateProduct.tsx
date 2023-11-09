@@ -154,7 +154,7 @@ const UpdateProduct = () => {
           name="category_id"
           onChange={(e) => setcategory_id(e.target.value)}
           value={category_id}
-          error={errs?.category_id}
+          error={errors?.category_id}
           options={(data?.categories as CategoryType[])?.map((e) => {
             return { val: e?.id, name: e?.name };
           })}
@@ -164,10 +164,24 @@ const UpdateProduct = () => {
           name="store_id"
           onChange={(e) => setstore_id(e.target.value)}
           value={store_id}
-          error={errs?.store_id}
+          error={errors?.store_id}
           options={(data?.stores as StoreType[])?.map((e) => {
             return { val: e?.id, name: e?.name };
           })}
+        />
+        <InputSelect
+          label="Rating"
+          name="rating"
+          options={[
+            { name: "5", val: "5" },
+            { name: "4", val: "4" },
+            { name: "3", val: "3" },
+            { name: "2", val: "2" },
+            { name: "1", val: "1" },
+          ]}
+          error={errs?.store_id}
+          value={rating}
+          onChange={(e) => setrating(e.target.value)}
         />
         <InputSelect
           label="Type"
