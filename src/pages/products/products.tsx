@@ -6,6 +6,7 @@ import ProductCard from "@/components/products/ProductCard";
 import { Button } from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Pagination from "@/components/ui/Pagination";
+import MetaDate from "@/lib/metaDate";
 import { ProductType } from "@/lib/types";
 import { userProducts } from "@/slices/home/homeAction";
 import { FC, useState } from "react";
@@ -36,6 +37,7 @@ const Products: FC<ProductsProps> = () => {
   }
   return (
     <div className="flex-1 p-4">
+      <MetaDate ttl="All Products - page" />
       <Breadcamp isDash={false} ttl="Products" links={links} />
       <div className="flex gap-2">
         <SidebarFilter />

@@ -9,7 +9,7 @@ const useSingle = ({
   callFun,
 }: {
   states: string;
-  callFun: (id: number) => AnyAction;
+  callFun: (id: string) => AnyAction;
 }) => {
   const params = useParams()?.id;
   const { loading, data, errors, success, msg } = useAppSelector(
@@ -31,7 +31,9 @@ const useSingle = ({
 
   useEffect(() => {
     const fetchData = () => {
-      dispatch(callFun(Number(params)));
+      console.log(params);
+
+      dispatch(callFun(`${params}`));
     };
 
     fetchData();

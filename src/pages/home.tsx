@@ -57,12 +57,9 @@ const Home: FC<homeProps> = () => {
         {(data as HomeType)?.categories?.map((e) => (
           <li
             key={e?.name}
-            className="h-[45px] whitespace-nowrap flex items-center gap-1 font-semibold px-2 border-r border-slate-300"
+            className="h-[45px] whitespace-nowrap flex items-center gap-1 font-semibold px-3 border-r border-slate-300"
           >
-            {e?.name}{" "}
-            <p className=" mt-1">
-              <LuChevronDown />
-            </p>
+            {e?.name}
           </li>
         ))}
       </div>

@@ -5,6 +5,7 @@ import { BiSolidStar } from "react-icons/bi";
 import { CiShoppingBasket } from "react-icons/ci";
 import { adminImgUrl } from "@/lib/utils";
 import { FaPercentage } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 interface ProductCardProps {
   product: ProductType;
@@ -18,18 +19,21 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   };
   return (
     <div className="relative flex flex-col rounded-lg w-full p-2 hover:scale-105 hover:shadow-lg border border-slate-300 overflow-hidden">
-      <div>
+      <Link to={`/products/${product?.slug}`}>
         <img
           className="w-[200px] h-[200px] m-auto object-cover rounded-lg"
           src={product?.image ? handleImg() : notFound}
           alt="product - img"
           loading="lazy"
         />
-      </div>
+      </Link>
       <span className="text-slate-500">{product?.category}</span>
-      <h2 className="text-xl text text-slate-900 font-semibold">
+      <Link
+        to={`/products/${product?.slug}`}
+        className="text-xl text text-slate-900 font-semibold"
+      >
         {product?.name}
-      </h2>
+      </Link>
       <p className="text-2 text-slate-500 flex-1">{product?.disc}</p>
       <div className="flex justify-between items-center mt-auto">
         <span className="flex items-center gap-1 text-xl">

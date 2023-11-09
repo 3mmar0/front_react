@@ -29,6 +29,7 @@ import updateCarusel from "@/slices/carusel/updateCarusel";
 import deleteCarusel from "@/slices/carusel/deleteCarusel";
 import home from "@/slices/home/home";
 import userProducts from "@/slices/home/userProducts";
+import userSingleProducts from "@/slices/home/userSingleProducts";
 
 export const store = configureStore({
   reducer: {
@@ -38,6 +39,7 @@ export const store = configureStore({
     // Home
     home: home,
     userProducts: userProducts,
+    userSingleProducts: userSingleProducts,
     // Auth
     profile: profile,
     updateProfile,

@@ -6,7 +6,7 @@ import FormInput from "@/components/form/FormInput";
 import { Button } from "@/components/ui/Button";
 import InputFile from "@/components/ui/InputFile";
 import InputSelect from "@/components/ui/InputSelect";
-import { ProductType } from "@/lib/types";
+import { CategoryType, ProductType, StoreType } from "@/lib/types";
 import { uploadImg } from "@/lib/utils";
 import FormModel from "@/models/form-model";
 import {
@@ -81,7 +81,7 @@ const UpdateProduct = () => {
       setstore_id(data?.store_id);
       setprice(data?.price);
       setcompare_price(data?.compare_price);
-      settags(data?.tags);
+      settags(data?.tags?.map((e) => e?.slug)?.toString());
       setrating(data?.rating);
       settype(data?.type);
       setimage({ ...image, imgApi: data?.image });
@@ -116,6 +116,14 @@ const UpdateProduct = () => {
           error={errors?.name}
         />
         <FormInput
+          value={tags}
+          onChange={(e) => settags(e.target.value)}
+          label="tags"
+          name="tags"
+          placeholder="Product tags"
+          error={errors?.tags}
+        />
+        <FormInput
           value={disc}
           onChange={(e) => setdisc(e.target.value)}
           label="disc"
@@ -145,15 +153,21 @@ const UpdateProduct = () => {
           label="category"
           name="category_id"
           onChange={(e) => setcategory_id(e.target.value)}
+          value={category_id}
           error={errs?.category_id}
-          options={[]}
+          options={(data?.categories as CategoryType[])?.map((e) => {
+            return { val: e?.id, name: e?.name };
+          })}
         />
         <InputSelect
           label="store"
           name="store_id"
           onChange={(e) => setstore_id(e.target.value)}
+          value={store_id}
           error={errs?.store_id}
-          options={[]}
+          options={(data?.stores as StoreType[])?.map((e) => {
+            return { val: e?.id, name: e?.name };
+          })}
         />
         <InputSelect
           label="Type"

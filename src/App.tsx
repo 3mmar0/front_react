@@ -4,7 +4,7 @@ import Root from "@/pages/root";
 import Login from "@pages/login";
 import ErrorPage from "./ErrorPage";
 import Home from "@pages/home";
-import ProductsPage from "@pages/products";
+import ProductsPage from "@/pages/products/products";
 import Register from "@pages/register";
 import GuestUser from "@/middlewares/GuestUser";
 import Dash from "@pages/dashboard/dash";
@@ -25,6 +25,7 @@ import AdminUser from "./middlewares/AdminUser";
 import Carusels from "./pages/dashboard/carusels/carusels";
 import CreateCarusel from "./pages/dashboard/carusels/createCarusel";
 import UpdateCarusel from "./pages/dashboard/carusels/updateCarusel";
+import SingleProduct from "./pages/products/singleProduct";
 
 const router = createBrowserRouter([
   {
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: <ProductsPage />,
+      },
+      {
+        path: "/products/:id",
+        element: <SingleProduct />,
       },
       ////////////////// Dashboard //////////////////
       {
