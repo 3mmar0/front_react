@@ -60,7 +60,7 @@ export interface ProductType {
   status?: string;
   created_at?: string;
   updated_at?: string;
-  // parent?: CategoryType;
+  sameProducts?: ProductType[];
 }
 
 export interface CaruselType {

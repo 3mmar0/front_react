@@ -1,12 +1,13 @@
 import useSingle from "@/Hook/useSingle";
 import Breadcamp from "@/components/Breadcamp";
 import Loader from "@/components/Loader";
+import ProductCard from "@/components/products/ProductCard";
 import { Button } from "@/components/ui/Button";
 import MetaDate from "@/lib/metaDate";
 import { ProductType } from "@/lib/types";
 import { userSingleProduct } from "@/slices/home/homeAction";
 import { FC } from "react";
-import { BiSolidStar, BiStar } from "react-icons/bi";
+import { BiSolidStar } from "react-icons/bi";
 import { FaCartPlus } from "react-icons/fa";
 
 interface SingleProductProps {}
@@ -37,7 +38,11 @@ const SingleProduct: FC<SingleProductProps> = () => {
         />
         <div className="flex sm:flex-row flex-col gap-3">
           <div className="md:w-[80%] w-full">
-            <img src={data?.image} className="rounded-md block m-auto" alt="" />
+            <img
+              src={data?.image}
+              className="rounded-md w-full max-w-[400px] block m-auto"
+              alt=""
+            />
           </div>
           <div className="w-full py-2">
             <span className="block">{data?.category}</span>
@@ -88,7 +93,14 @@ const SingleProduct: FC<SingleProductProps> = () => {
           </div>
         </div>
         <div>content like more options and reviews</div>
-        <div>Products Like this</div>
+        <h2 className="sec_ttl w-fit text-2xl font-semibold my-4">
+          You may also like:
+        </h2>
+        <div className="grid grid-cols-product gap-4">
+          {data?.sameProducts?.map((e) => (
+            <ProductCard product={e} />
+          ))}
+        </div>
       </div>
     </>
   );
