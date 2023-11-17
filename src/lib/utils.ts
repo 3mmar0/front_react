@@ -21,7 +21,7 @@ export function cn(...inputs: ClassValue[]) {
 export const adminImgUrl = ({ img }: { img: string | undefined }) => {
   return window.location.hostname === "localhost"
     ? `http://localhost:8000/storage/${img}`
-    : `https://3mmar.amadagency.net/storage/${img}`;
+    : `https://estore.ammarelgendy.online/storage/${img}`;
 };
 
 export const uploadImg = (e: React.ChangeEvent) => {
