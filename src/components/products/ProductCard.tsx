@@ -6,6 +6,7 @@ import { CiShoppingBasket } from "react-icons/ci";
 import { adminImgUrl } from "@/lib/utils";
 import { FaPercentage } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import AddToCartBtn from "../cart/AddToCartBtn";
 
 interface ProductCardProps {
   product: ProductType;
@@ -49,15 +50,14 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
           {product?.price}$
         </p>
       </div>
-      <div className="absolute cursor-pointer top-0 right-0 w-11 h-11 bg-cyan-900 text-white text-3xl flex items-center justify-center rounded-bl-md active:scale-95">
-        <CiShoppingBasket />
-      </div>
+
       {product?.compare_price && (
         <div className="absolute cursor-pointer top-0 left-0 text-sm px-2 h-7 bg-red-900 text-white flex items-center justify-center gap-1">
           <FaPercentage />
           {(100 - (product?.compare_price / product?.price) * 100).toFixed(1)}
         </div>
       )}
+      <AddToCartBtn product={product} />
     </div>
   );
 };

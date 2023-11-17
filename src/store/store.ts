@@ -30,12 +30,15 @@ import deleteCarusel from "@/slices/carusel/deleteCarusel";
 import home from "@/slices/home/home";
 import userProducts from "@/slices/home/userProducts";
 import userSingleProducts from "@/slices/home/userSingleProducts";
+import cartSlice from "@/slices/cart/cartSlice";
 
 export const store = configureStore({
   reducer: {
     // Globals
     GlobalCats: globalCategories,
     GlobalStores: globalStores,
+    // Cart
+    cart: cartSlice,
     // Home
     home: home,
     userProducts: userProducts,
