@@ -5,8 +5,11 @@ import { BiHomeAlt2, BiShoppingBag } from "react-icons/bi";
 import { CiGrid42, CiSearch } from "react-icons/ci";
 import Input from "../ui/Input";
 import { cn } from "@/lib/utils";
+import { useAppSelector } from "@/store/hooks";
 
 const Header = () => {
+  const { items } = useAppSelector((s) => s.cart);
+
   return (
     <div
       className={cn(
@@ -53,7 +56,7 @@ const Header = () => {
           <div className="relative flex items-center justify-center border border-slate-300 rounded-full w-[35px] h-[35px] cursor-pointer active:scale-95">
             <BiShoppingBag className="text-slate-700 text-[23px]" />
             <span className="absolute -top-2 -left-2 w-5 h-5 text-sm bg-green-900 flex items-center justify-center text-white rounded-full">
-              5
+              {items?.length}
             </span>
           </div>
           <div className="relative flex items-center gap-3">

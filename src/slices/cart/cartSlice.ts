@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
 const initialState = {
-  items: {},
+  items: JSON.parse(localStorage.getItem("storia_cart")) || [],
 };
 
 const cartSlice = createSlice({
@@ -18,8 +18,10 @@ const cartSlice = createSlice({
           "storia_cart",
           JSON.stringify([...cartItems, action?.payload])
         );
+        state.items = [...cartItems, action?.payload];
         toast.success("item added to the cart successfully");
       } else {
+        state.items = [...cartItems];
         toast.error("item is already added to the cart");
       }
     },
@@ -29,6 +31,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, gatCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

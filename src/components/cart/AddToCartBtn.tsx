@@ -1,9 +1,6 @@
 import { ProductType } from "@/lib/types";
-import { FC, useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { FC } from "react";
 import { CiShoppingBasket } from "react-icons/ci";
-import Loader from "../Loader";
-import { BiLoaderCircle } from "react-icons/bi";
 import { useAppDispatch } from "@/store/hooks";
 import { addToCart } from "@/slices/cart/cartSlice";
 
