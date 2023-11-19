@@ -10,7 +10,6 @@ interface SidebarFilterProps {}
 
 const SidebarFilter: FC<SidebarFilterProps> = () => {
   const [search, setSearch] = useSearchParams();
-  // const queryParams = new URLSearchParams(location.search);
   const currentPage = search.get("page") || "1";
   const currentSearch = search.get("name") || "";
 
@@ -21,6 +20,7 @@ const SidebarFilter: FC<SidebarFilterProps> = () => {
     category_id: search.get("category_id") || "",
     rating: search.get("rating") || "5",
   });
+
   const handleSearchFilter = (e: FormEvent) => {
     e.preventDefault();
 
