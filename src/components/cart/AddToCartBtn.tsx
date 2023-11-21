@@ -25,7 +25,7 @@ const AddToCartBtn: FC<AddToCartBtnProps> = ({ product }) => {
   return (
     <div
       onClick={handleAddToCart}
-      className="absolute cursor-pointer top-0 right-0 w-11 h-11 bg-cyan-900 text-white text-3xl flex items-center justify-center rounded-bl-md active:scale-95"
+      className="absolute cursor-pointer top-0 right-0 w-11 h-11 bg-cyan-900 text-white text-3xl flex items-center justify-center rounded-bl-md active:scale-90"
     >
       <CiShoppingBasket />
     </div>
